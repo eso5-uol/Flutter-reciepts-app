@@ -3,6 +3,8 @@ Definition of Done:
 
 Questions for the Client:
 -What platform would you like us to make the app on, android or ios?
+-What does the "2 week expenses process" entail?
+-Does the app have to handle expenses in every single currency, or is there only a need to focus on the main ones?
 
 Group Rules:
 -Attendance and punctuality is expected at meetings 

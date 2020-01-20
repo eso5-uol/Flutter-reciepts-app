@@ -2,7 +2,7 @@ Definition of Done:
 -
 
 Questions for the Client:
--
+-What does the "2 week expenses process" entail?
 
 Group Rules:
 -Attendance and punctuality is expected at meetings 

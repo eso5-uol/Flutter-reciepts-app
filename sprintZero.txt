@@ -2,7 +2,7 @@ Definition of Done:
 -
 
 Questions for the Client:
--
+-What platform would you like us to make the app on, android or ios?
 
 Group Rules:
 -Attendance and punctuality is expected at meetings 

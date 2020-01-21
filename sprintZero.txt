@@ -3,6 +3,7 @@ Definition of Done:
 
 Questions for the Client:
 -What platform would you like us to make the app on, android or ios?
+--Does this need to be a 'native' app for Android/iOS, or would a 'web app' be suitable - so, a website that scales reponsively to different views? ==> [reword to make simpler for client to understand?]
 -What does the "2 week expenses process" entail?
 -Does the app have to handle expenses in every single currency, or is there only a need to focus on the main ones?
 -- How should the calculations be handled re. conversions? ie. convert everything to a single unified currency (GBP) for calculating the overall total expenses?

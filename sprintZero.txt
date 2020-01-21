@@ -1,6 +1,12 @@
 Definition of Done:
 -
 
+=========
+Some potential suggestions:
+- [] Feature ok-ed(?) by client / Product Owner accepts the user story
+- [] Feature has been tested for bugs to a reasonable level
+- [] Feature meets all criteria of the user story
+
 Questions for the Client:
 -What platform would you like us to make the app on, android or ios?
 --Does this need to be a 'native' app for Android/iOS, or would a 'web app' be suitable - so, a website that scales reponsively to different views? ==> [reword to make simpler for client to understand?]

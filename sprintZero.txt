@@ -25,6 +25,7 @@ Questions for the Client:
 - are received notifications by email, through the app, or both? (or it depends on the notification)
 - photos taken as evidence are taken as is - should the app also suggest some fields to be filled out for each photo?
     	- such as cost, location, item(s) expensed...
+-Have you got any existing similar apps
 	
 - the maybe dumb question: is the 2 week expense process just you have 2 weeks to expense your claims? ))
 

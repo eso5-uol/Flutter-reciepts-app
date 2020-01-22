@@ -7,7 +7,7 @@ Some potential suggestions:
 - [] Feature has been tested for bugs to a reasonable level
 - [] Feature meets all criteria of the user story
 - [] Feature has been implemented/integrated into the current overall project build
-- [] Feature has a functional user interface to ebable use and interaction (?)
+- [] Feature has a functional user interface to enable use and interaction (?)
 =========
 
 Questions for the Client:

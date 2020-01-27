@@ -1,0 +1,39 @@
+Definition of Done:
+-
+
+=========
+Some potential suggestions:
+- [] Feature ok-ed(?) by client / Product Owner accepts the user story
+- [] Feature has been tested for bugs to a reasonable level
+- [] Feature meets all criteria of the user story
+- [] Feature has been implemented/integrated into the current overall project build
+- [] Feature has a functional user interface to enable use and interaction (?)
+=========
+
+Questions for the Client:
+-What platform would you like us to make the app on, android or ios?
+        --Does this need to be a 'native' app for Android/iOS, or would a 'web app' be suitable - so, a website that scales reponsively to different views? ==> [reword to make simpler for client to understand?]
+-What does the "2 week expenses process" entail?
+-Does the app have to handle expenses in every single currency, or is there only a need to focus on the main ones?
+-- How should the calculations be handled re. conversions? ie. convert everything to a single unified currency (GBP) for calculating the overall total expenses?
+- username `can` be an email, can it be something else too? or is it just going to be an email?
+- what is the enforced password policy?
+- who can unlock a locked user account and how? (ideally only admin can email user a password reset link that unlocks it)
+- when evidence is exported from travel apps such as Trailine:
+    	- is the exported document to be formatted in any specific way?
+    	- if yes, then the exporting process may need to be done separately for each travel app
+- are received notifications by email, through the app, or both? (or it depends on the notification)
+- photos taken as evidence are taken as is - should the app also suggest some fields to be filled out for each photo?
+    	- such as cost, location, item(s) expensed...
+-Have you got any existing similar apps
+	
+- the maybe dumb question: is the 2 week expense process just you have 2 weeks to expense your claims? ))
+
+Group Rules:
+-Attendance and punctuality is expected at meetings 
+-Must be willing to contribute to discussions
+-Everyone has the right to speak and opinions will be respected
+-We will work to the strengths of users
+-Share all relevant information
+
+

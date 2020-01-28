@@ -1,2 +1,17 @@
 Values to choose from: {0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 80, 100} (almost Fibonacci sequence)
 
+Suggestions:
+#1 Emails as usernames. Enforced password policy.: 2
+#2 Attempts to force entry into a user account leads to account being locked: 3
+#3 Users can set/change their password: 3
+#4 Admins can view all expense claims: 5
+#6 Line managers receive notifications for new expense claims: 5
+#7 Users can login to the app: 13
+#8 Manager can write comments when accepting/rejecting claims: 3
+#9 Users can see their own expense claims: 5
+#10 Line managers can see all claims made by employees they are responsible for: 8
+#11 Ability to claim expenses in multiple currencies: 8
+#12 Claim notifications: 5
+#13 Claim automation: 13
+#14 Claim evidence: 5
+#15 Prepopulating claim with user data: 8 

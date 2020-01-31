@@ -71,6 +71,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 return null;
               },
             ),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Enter your password',
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: RaisedButton(

@@ -45,6 +45,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String _email, _password;
   final _formKey = GlobalKey<FormState>();
 
   @override

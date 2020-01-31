@@ -62,11 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Enter your email',
+                hintText: 'Email',
               ),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Email cannot be blank';
                 }
                 return null;
               },
@@ -74,11 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               obscureText: true,
               decoration: const InputDecoration(
-                hintText: 'Enter your password',
+                hintText: 'Password',
               ),
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Password cannot be blank';
                 }
                 return null;
               },

@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
                 return null;
               },
-              onSaved: (value) => _email = value,
+              onSaved: (value) => _password = value,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),

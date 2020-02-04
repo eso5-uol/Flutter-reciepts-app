@@ -1,5 +1,6 @@
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -68,6 +69,17 @@ class _SignInState extends State<SignIn> {
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
                     if (result == null) {
                       setState(() => error = "Login credentials incorrect");
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Successfully logged in",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 2,
+                        backgroundColor: Colors.white,
+                        textColor: Colors.black,
+                        fontSize: 16,
+                      );
+                      print("AKLSXNFLASKFNLAKSFNLAKSFNLAKSFN");
                     }
                   }
                 },

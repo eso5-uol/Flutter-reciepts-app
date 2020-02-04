@@ -1,6 +1,7 @@
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -68,6 +69,7 @@ class _SignInState extends State<SignIn> {
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
                     if (result == null) {
+                      HapticFeedback.vibrate();
                       setState(() => error = "Login credentials incorrect");
                     } else {
                       Fluttertoast.showToast(
@@ -79,8 +81,9 @@ class _SignInState extends State<SignIn> {
                         textColor: Colors.black,
                         fontSize: 16,
                       );
-                      print("AKLSXNFLASKFNLAKSFNLAKSFNLAKSFN");
                     }
+                  } else {
+                    HapticFeedback.vibrate();
                   }
                 },
               ),

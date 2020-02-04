@@ -9,9 +9,11 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   String _email = "";
   String _password = "";
+  String error = "";
 
 
   @override
@@ -25,10 +27,12 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               SizedBox(height: 20,),
-              TextFormField(                    //email
+              TextFormField(//email
+                validator: (val) => val.isEmpty ? "Enter an email" : null,
                 onChanged: (value) {
                   setState(() {
                     _email = value;
@@ -41,6 +45,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20,),
               TextFormField(                    //password
+                validator: (val) => val.isEmpty ? "Enter a password" : null,
                 onChanged: (value) {
                   setState(() {
                     _password = value;
@@ -59,9 +64,21 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  print(_email);
-                  print(_password);
+                  if (_formKey.currentState.validate()) {
+                    dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
+                    if (result == null) {
+                      setState(() => error = "Login credentials incorrect");
+                    }
+                  }
                 },
+              ),
+              SizedBox(height: 12,),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                ),
               )
             ],
           ),

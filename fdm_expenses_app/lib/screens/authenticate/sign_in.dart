@@ -33,8 +33,11 @@ class _SignInState extends State<SignIn> {
                   setState(() {
                     _email = value;
                   });
-
                 },
+                decoration: const InputDecoration(
+                  hintText: "Username@fdm.co.uk",
+                  labelText: "Email Address",
+                ),
               ),
               SizedBox(height: 20,),
               TextFormField(                    //password
@@ -43,6 +46,9 @@ class _SignInState extends State<SignIn> {
                     _password = value;
                   });
                 },
+                decoration: const InputDecoration(
+                  labelText: "Password",
+                ),
                 obscureText: true,
               ),
               SizedBox(height: 20),
@@ -55,7 +61,6 @@ class _SignInState extends State<SignIn> {
                 onPressed: () async {
                   print(_email);
                   print(_password);
-
                 },
               )
             ],

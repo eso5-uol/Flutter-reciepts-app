@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1011607264330",
+    "firebase_url": "https://fdm-expenses-f24f2.firebaseio.com",
+    "project_id": "fdm-expenses-f24f2",
+    "storage_bucket": "fdm-expenses-f24f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011607264330:android:649b26af54f9d31f35dab3",
+        "android_client_info": {
+          "package_name": "com.fdmgroup.fdm_expenses_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011607264330-htg3oufvl4sr0ardtsfutpntpvk6quov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoMJOUiGjhp50Jgb9PAFyh2BjALmYfwTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011607264330-htg3oufvl4sr0ardtsfutpntpvk6quov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

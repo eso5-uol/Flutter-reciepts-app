@@ -1,49 +1,51 @@
 Information from meeting:
 
-Updating client on what we have done last sprint
+    1. Updating client on what we have done last sprint
 
-What we’re gonna work on next sprint
-	Expenses form
-	Secure login feature done
-	
-Getting a copy of the policy
-
-Be aware of the different currencies
-	Eg. going to ireland meaning u need euros and gbp
-
-Talking about having need to sign up or have a manager/admin to create and logins on the app (admin will need to be the only one to do this)
-
-Showing the app on the phone, login of the app. Colour scheme of the app
-	
-Next meeting come with the things we need to show, and we can discuss what the expenses form will look like
-
-What will be done
-Login of the app
-Email as username
-
-What we will be doing
-User can set and change/reset their password
-Create an expenses form
-Locking user out of their account (priority)
-How to add an account
+    2. What we’re gonna work on next sprint
+    	- Expenses form
+    	- Secure login feature
+    	
+    3. Getting a copy of the policy
+    
+    4. Be aware of the different currencies
+    	- Eg. going to ireland meaning u need euros and gbp
+    
+    5. Talking about having need to sign up or have a manager/admin to create and logins on the app (manager/admin will need to be the only one to do this)
+    
+    6. Showing the app on the phone to the client via skype video call, login of the app, Colour scheme of the app, etc.
+    	
+    7. Next meeting come with the things we need to show, and we can discuss what the expenses form will look like
+    
+    - What will be done next session
+        i. Login of the app
+        ii. Email as username
+    
+    - What we will be doing
+        i. User can set and change/reset their password
+        ii. Create an expenses form
+        iii. Locking user out of their account (priority)
+        iv. How to add an account
 
 Information after meeting:
 
+uploading notes
+getting git to work on camerons pc
 
 
 Questions and answers:
 
 Questions:
 
-1. Having to either have an admin sign in or have the admin access the app from the back end to add 		
+        1. Having to either have an admin sign in or have the admin access the app from the back end to add 		
 		2. If we enter the wrong email or pass itll give us an error (client to us)
 		3. Can we implement a reset password feature for the app
-4. How many times will the user get their password or email wrong before the user gets their account locked
+        4. How many times will the user get their password or email wrong before the user gets their account locked
 
 
 Answer:
 
-So either the we could add an admin login method to the app, or just have the admin do it from the backend of the app
+        1. So either the we could add an admin login method to the app, or just have the admin do it from the backend of the app
 		2. Yes, this will not allow you to log into the app
 		3. Yes, this is another story feature so we will push this story next
-4. Use the industry standard feature, so probably 3 attempts
+        4. Use the industry standard feature, so probably 3 attempts

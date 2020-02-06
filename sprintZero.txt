@@ -1,9 +1,4 @@
 Definition of Done:
--
-
-=========
-Some potential suggestions:
-- [] Feature ok-ed(?) by client / Product Owner accepts the user story
 - [] Feature has been tested for bugs to a reasonable level
 - [] Feature meets all criteria of the user story
 - [] Feature has been implemented/integrated into the current overall project build

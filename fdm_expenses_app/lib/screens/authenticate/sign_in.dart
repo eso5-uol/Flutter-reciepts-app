@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20,),
               //email
               TextFormField(
-                validator: Validator.emptyString,
+                validator: Validator.emptyEmail,
                 onChanged: (value) {
                   setState(() {
                     _email = value;
@@ -50,7 +50,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20,),
               //password
               TextFormField(
-                validator: Validator.emptyString,
+                validator: Validator.emptyPassword,
                 onChanged: (value) {
                   setState(() {
                     _password = value;

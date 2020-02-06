@@ -1,5 +1,10 @@
 class Validator {
-  static String emptyString(String value) {
-    return value.isEmpty ? 'Field cannot be empty' : null;
+
+  static String emptyEmail(String value) {
+    return value.isEmpty ? 'Enter an email' : null;
+  }
+
+  static String emptyPassword(String value) {
+    return value.isEmpty ? 'Enter a password' : null;
   }
 }

@@ -2,6 +2,7 @@ import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
+import 'package:fdm_expenses_app/validators.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -33,8 +34,9 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20,),
-              TextFormField(//email
-                validator: (val) => val.isEmpty ? "Enter an email" : null,
+              //email
+              TextFormField(
+                validator: Validator.emptyString,
                 onChanged: (value) {
                   setState(() {
                     _email = value;
@@ -46,8 +48,9 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               SizedBox(height: 20,),
-              TextFormField(                    //password
-                validator: (val) => val.isEmpty ? "Enter a password" : null,
+              //password
+              TextFormField(
+                validator: Validator.emptyString,
                 onChanged: (value) {
                   setState(() {
                     _password = value;
@@ -59,7 +62,8 @@ class _SignInState extends State<SignIn> {
                 obscureText: true,
               ),
               SizedBox(height: 20),
-              RaisedButton(                     //button
+              //button
+              RaisedButton(
                 color: Colors.pink[400],
                 child: Text(
                   "Sign in",

@@ -91,6 +91,12 @@ class _SignInState extends State<SignIn> {
                   }
                 },
               ),
+              RaisedButton(
+                child: Text("base67480@gmail.com"),
+                onPressed: () async {
+                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'password');
+                },
+              ),
               SizedBox(height: 12,),
               Text(
                 error,

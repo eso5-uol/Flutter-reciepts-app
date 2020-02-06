@@ -34,7 +34,6 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20,),
-              //email
               TextFormField(
                 validator: Validator.emptyEmail,
                 onChanged: (value) {
@@ -43,12 +42,11 @@ class _SignInState extends State<SignIn> {
                   });
                 },
                 decoration: const InputDecoration(
-                  hintText: "Username@fdm.co.uk",
+                  hintText: "@fdm.co.uk",
                   labelText: "Email Address",
                 ),
               ),
               SizedBox(height: 20,),
-              //password
               TextFormField(
                 validator: Validator.emptyPassword,
                 onChanged: (value) {
@@ -62,7 +60,6 @@ class _SignInState extends State<SignIn> {
                 obscureText: true,
               ),
               SizedBox(height: 20),
-              //button
               RaisedButton(
                 color: Colors.pink[400],
                 child: Text(
@@ -91,10 +88,21 @@ class _SignInState extends State<SignIn> {
                   }
                 },
               ),
+              SizedBox(height: 20,),
               RaisedButton(
                 child: Text("base67480@gmail.com"),
+                color: Colors.red[300],
                 onPressed: () async {
-                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'password');
+                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'keep.out');
+                  Fluttertoast.showToast(
+                    msg: "Successfully logged in",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 2,
+                    backgroundColor: Colors.white,
+                    textColor: Colors.black,
+                    fontSize: 16,
+                  );
                 },
               ),
               SizedBox(height: 12,),

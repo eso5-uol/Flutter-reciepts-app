@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
         child: Text("Reset password"),
         onPressed: () {
           Fluttertoast.showToast(
-            msg: "Reset Password email sent",
+            msg: "Please Sign in again with the new password",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIos: 2,
@@ -47,6 +47,7 @@ class Home extends StatelessWidget {
           );
           _auth.resetPassword(user.email);
           print(user.email);
+          _auth.signOut();
         },
       ),
     );

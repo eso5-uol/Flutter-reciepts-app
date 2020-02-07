@@ -1,8 +1,10 @@
+import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:fdm_expenses_app/validators.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -18,9 +20,38 @@ class _SignInState extends State<SignIn> {
   String _password = "";
   String error = "";
 
+  createAlertDialog(BuildContext context) {
+    TextEditingController customController = TextEditingController();
+    return showDialog(context: context, builder: (context) {
+      return AlertDialog(
+        title: Text("Enter your email to reset the password"),
+        content: TextField(
+          controller: customController,
+          decoration: const InputDecoration(
+            labelText: "Email Address",
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            elevation: 5.0,
+            child: Text("Submit"),
+            onPressed: () {
+
+
+              _auth.resetPassword(customController.text.toString());
+              Navigator.of(context).pop();
+
+            },
+          )
+        ],
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
     return Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
@@ -87,6 +118,19 @@ class _SignInState extends State<SignIn> {
                     HapticFeedback.vibrate();
                   }
                 },
+              ),
+              SizedBox(height: 20,),
+              RaisedButton(
+                color: Colors.pink[400],
+                onPressed: () {
+                  createAlertDialog(context);
+                },
+                child: Text(
+                  "Forgotten your password?",
+                  style: TextStyle(
+                      color: Colors.white
+                  ),
+                ),
               ),
               SizedBox(height: 20,),
               RaisedButton(

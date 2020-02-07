@@ -32,23 +32,26 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: RaisedButton(
-        color: Colors.red,
-        child: Text("Reset password"),
-        onPressed: () {
-          Fluttertoast.showToast(
-            msg: "Please Sign in again with the new password",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 2,
-            backgroundColor: Colors.white,
-            textColor: Colors.black,
-            fontSize: 16,
-          );
-          _auth.resetPassword(user.email);
-          print(user.email);
-          _auth.signOut();
-        },
+      body: Column(
+        children: <Widget>[
+          RaisedButton(
+            color: Colors.red,
+            child: Text("Reset password"),
+            onPressed: () {
+              Fluttertoast.showToast(
+                msg: "Please Sign in again with the new password",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIos: 2,
+                backgroundColor: Colors.white,
+                textColor: Colors.black,
+                fontSize: 16,
+              );
+              _auth.resetPassword(user.email);
+              _auth.signOut();
+            },
+          ),
+        ],
       ),
     );
   }

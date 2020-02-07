@@ -20,7 +20,7 @@ class _SignInState extends State<SignIn> {
   String _password = "";
   String error = "";
 
-  createAlertDialog(BuildContext context) {
+  resetPasswordLinkAlert(BuildContext context) {
     TextEditingController customController = TextEditingController();
     return showDialog(context: context, builder: (context) {
       return AlertDialog(
@@ -36,11 +36,8 @@ class _SignInState extends State<SignIn> {
             elevation: 5.0,
             child: Text("Submit"),
             onPressed: () {
-
-
               _auth.resetPassword(customController.text.toString());
               Navigator.of(context).pop();
-
             },
           )
         ],
@@ -123,7 +120,7 @@ class _SignInState extends State<SignIn> {
               RaisedButton(
                 color: Colors.pink[400],
                 onPressed: () {
-                  createAlertDialog(context);
+                  resetPasswordLinkAlert(context);
                 },
                 child: Text(
                   "Forgotten your password?",

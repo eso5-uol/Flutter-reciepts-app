@@ -1,5 +1,4 @@
 import 'package:fdm_expenses_app/models/user.dart';
-import 'package:fdm_expenses_app/screens/custom_bottom_navigation.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,23 +19,7 @@ class Home extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          RaisedButton(
-            color: Colors.red,
-            child: Text("Reset password"),
-            onPressed: () {
-              Fluttertoast.showToast(
-                msg: "Please Sign in again with the new password",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 2,
-                backgroundColor: Colors.white,
-                textColor: Colors.black,
-                fontSize: 16,
-              );
-              _auth.resetPassword(user.email);
-              _auth.signOut();
-            },
-          ),
+          Text("Home Screen")
         ],
       ),
     );

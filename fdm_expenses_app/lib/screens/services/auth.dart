@@ -72,6 +72,11 @@ class AuthService {
       return null;
     }
   }
+  
+  //change password 
+  Future changePassword(String password) async {
+//    return await _auth.
+  }
 
 
 }

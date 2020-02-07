@@ -1,4 +1,3 @@
-import 'package:fdm_expenses_app/screens/custom_bottom_navigation.dart';
 import 'package:fdm_expenses_app/screens/home/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,12 +28,6 @@ class _LoggedInState extends State<LoggedIn> {
 
     final user = Provider.of<User>(context);
     final AuthService _auth = AuthService();
-
-//    if (user.currentIndex == 1) {
-//      return Home();
-//    } else {
-//      return Settings();
-//    }
 
     return Scaffold(
       appBar: AppBar(

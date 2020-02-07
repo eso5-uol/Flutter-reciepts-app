@@ -21,6 +21,7 @@ class _SettingsState extends State<Settings> {
     TextEditingController customController = TextEditingController();
     return showDialog(context: context, builder: (context) {
       return AlertDialog(
+
         title: Text("Reset your password"),
         content: Form(
           child: Column(
@@ -58,8 +59,14 @@ class _SettingsState extends State<Settings> {
           MaterialButton(
             elevation: 5.0,
             child: Text("Reset Password"),
-            onPressed: () {
-
+            onPressed: () async {
+              dynamic successful = await _auth.changePassword(_password1);
+              if (successful == true){
+                print("good");
+                Navigator.of(context).pop();
+              } else {
+                print("Failed");
+              }
             },
           )
         ],

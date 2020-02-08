@@ -3,17 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
 
-  test('empty email returns error string', () {
-    var result = Validator.emptyEmail('');
-    expect(result, 'Enter an email');
-  });
-
-  test('non-empty email returns null', () {
-    var result = Validator.emptyEmail("value");
-    expect(result, null);
-  }
-  );
-
   test('empty password returns error string', () {
     var result = Validator.emptyPassword('');
     expect(result, 'Enter a password');
@@ -22,6 +11,18 @@ void main() {
   test('non-empty password returns null', () {
     var result = Validator.emptyPassword("value");
     expect(result, null);
+  }
+  );
+
+  test('matching passwords return true', () {
+    var result = Validator.matchingPassword("password", "password");
+    expect(result, true);
+  }
+  );
+
+  test('different passwords return true', () {
+    var result = Validator.matchingPassword("password", "different");
+    expect(result, false);
   }
   );
 

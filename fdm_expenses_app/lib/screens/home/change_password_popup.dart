@@ -2,8 +2,7 @@ import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../validators.dart';
+import 'package:fdm_expenses_app/validators.dart';
 
 class ChangePasswordPopup extends StatefulWidget {
   @override
@@ -70,7 +69,7 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
           child: Text("Reset Password"),
           onPressed: () async {
             if (_formKey.currentState.validate()) {
-              if (_password1 == _password2){
+              if (Validator.matchingPassword(_password1, _password2)){
                 dynamic successful = await _auth.changePassword(_password1);
                 if (successful == true) {
                   Navigator.of(context).pop();

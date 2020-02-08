@@ -7,7 +7,7 @@ void main() {
     var result = Validator.changePassword('');
     expect(result, 'Enter a password');
   });
-  
+
   test('matching passwords return true', () {
     var result = Validator.matchingPassword("password", "password");
     expect(result, true);

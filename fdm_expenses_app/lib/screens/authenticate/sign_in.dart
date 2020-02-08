@@ -134,7 +134,7 @@ class _SignInState extends State<SignIn> {
                 child: Text("base67480@gmail.com"),
                 color: Colors.red[300],
                 onPressed: () async {
-                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'keep.out');
+                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'Pa55word!');
                   Fluttertoast.showToast(
                     msg: "Successfully logged in",
                     toastLength: Toast.LENGTH_SHORT,

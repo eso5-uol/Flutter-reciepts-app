@@ -4,16 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
 
   test('empty password returns error string', () {
-    var result = Validator.emptyPassword('');
+    var result = Validator.changePassword('');
     expect(result, 'Enter a password');
   });
-
-  test('non-empty password returns null', () {
-    var result = Validator.emptyPassword("value");
-    expect(result, null);
-  }
-  );
-
+  
   test('matching passwords return true', () {
     var result = Validator.matchingPassword("password", "password");
     expect(result, true);
@@ -25,5 +19,30 @@ void main() {
     expect(result, false);
   }
   );
+
+  test('password matches all the requirements returns null', () {
+    var result = Validator.changePassword("Pa55word!");
+    expect(result, null);
+  });
+
+  test('password does not contain a lowercase returns error message', () {
+    var result = Validator.changePassword("PA55WORD!");
+    expect(result, "Password does not meet the requirements");
+  });
+
+  test('password does not contain a uppercase returns error message', () {
+    var result = Validator.changePassword("pa55word!");
+    expect(result, "Password does not meet the requirements");
+  });
+
+  test('password does not contain a number returns error message', () {
+    var result = Validator.changePassword("Password!");
+    expect(result, "Password does not meet the requirements");
+  });
+
+  test('password does not contain a special character returns error message', () {
+    var result = Validator.changePassword("Pa55word");
+    expect(result, "Password does not meet the requirements");
+  });
 
 }

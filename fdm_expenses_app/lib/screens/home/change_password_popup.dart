@@ -1,5 +1,6 @@
 import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fdm_expenses_app/validators.dart';
@@ -27,8 +28,23 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            Text(
+              "Passwords need to have at least:",
+            ),
+            Text(
+              "1 lowercase",
+            ),
+            Text(
+                "1 uppercase"
+            ),
+            Text(
+                "1 number"
+            ),
+            Text(
+                "1 special character (! @ # & * ~)"
+            ),
             TextFormField(
-              validator: Validator.emptyPassword,
+              validator: Validator.changePassword,
               onChanged: (value) {
                 setState(() {
                   _password1 = value;
@@ -73,6 +89,8 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
                 dynamic successful = await _auth.changePassword(_password1);
                 if (successful == true) {
                   Navigator.of(context).pop();
+                } else {
+                  setState(() => error = "An error has occured, please try later");
                 }
               } else {
                 setState(() => error = "Passwords need to match");
@@ -81,6 +99,6 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
           },
         )
       ],
-    );;
+    );
   }
 }

@@ -10,6 +10,14 @@ class Register extends StatelessWidget {
         backgroundColor: Colors.brown[400],
         title: Text("FDM Expenses"),
       ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Back'),
+        )
+      )
     );
   }
 }

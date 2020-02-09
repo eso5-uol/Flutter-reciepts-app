@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fdm_expenses_app/screens/services/auth.dart';
 
 class Register extends StatelessWidget {
 

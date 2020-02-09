@@ -1,4 +1,5 @@
 import 'package:fdm_expenses_app/screens/services/auth.dart';
+import 'package:fdm_expenses_app/screens/register/register.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -22,6 +23,17 @@ class Home extends StatelessWidget {
           )
         ],
       ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Register an account'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Register()),
+            );
+          }
+        )
+      )
     );
   }
 }

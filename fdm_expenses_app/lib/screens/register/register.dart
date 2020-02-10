@@ -47,7 +47,7 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print("Accept");
+                    _auth.registerWithEmailAndPassword(_email, _defaultPassword);
                   }
                 }
               )

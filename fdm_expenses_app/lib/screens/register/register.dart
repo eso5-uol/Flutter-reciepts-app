@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:fdm_expenses_app/validators.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -47,9 +48,29 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    _auth.registerWithEmailAndPassword(_email, _defaultPassword);
+                    dynamic result = await _auth.registerWithEmailAndPassword(_email, _defaultPassword);
+                    if (result == null) {
+                      setState(() => error = "Attempt to register account unsuccessful");
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Succesfully registered account",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 2,
+                        backgroundColor: Colors.white,
+                        textColor: Colors.black,
+                        fontSize: 16,
+                      );
+                    }
                   }
                 }
+              ),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                )
               )
             ],
           )

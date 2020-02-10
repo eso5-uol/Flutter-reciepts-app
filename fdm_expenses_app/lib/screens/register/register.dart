@@ -44,7 +44,12 @@ class _RegisterState extends State<Register> {
               RaisedButton(
                 child: Text(
                   "Register this account"
-                )
+                ),
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    print("Accept");
+                  }
+                }
               )
             ],
           )

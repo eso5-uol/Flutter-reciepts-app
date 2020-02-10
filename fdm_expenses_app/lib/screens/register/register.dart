@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
+import 'package:fdm_expenses_app/validators.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -22,12 +23,29 @@ class _RegisterState extends State<Register> {
         backgroundColor: Colors.brown[400],
         title: Text("FDM Expenses"),
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Back'),
+      body: Container(
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                validator: Validator.emptyEmail,
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                  });
+                },
+                decoration: const InputDecoration(
+                  hintText: "Username@fdm.co.uk",
+                  labelText: "Email Address",
+                )
+              ),
+              RaisedButton(
+                child: Text(
+                  "Register this account"
+                )
+              )
+            ],
+          )
         )
       )
     );

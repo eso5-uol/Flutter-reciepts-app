@@ -19,16 +19,12 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.brown[50],
-        appBar: AppBar(
-          backgroundColor: Colors.brown[400],
-          title: Text("FDM Expenses"),
-        ),
-        body: Container(
-            child: Form(
+    return AlertDialog(
+        title: Text("Register an account"),
+            content: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     TextFormField(
                         validator: Validator.emptyEmail,
@@ -79,6 +75,6 @@ class _RegisterState extends State<Register> {
                           fontSize: 14,
                         ))
                   ],
-                ))));
+                )));
   }
 }

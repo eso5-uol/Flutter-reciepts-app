@@ -48,7 +48,7 @@ class _RegisterState extends State<Register> {
                                     _email, _defaultPassword);
                             if (result == null) {
                               setState(() => error =
-                                  "Attempt to register account unsuccessful");
+                                  "Attempt to register account unsuccessful (invalid email?)");
                             } else {
                               try {
                                 await _auth.resetPassword(_email);

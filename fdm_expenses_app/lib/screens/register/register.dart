@@ -21,61 +21,62 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return AlertDialog(
         title: Text("Register an account"),
-            content: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    TextFormField(
-                        validator: Validator.emptyEmail,
-                        onChanged: (value) {
-                          setState(() {
-                            _email = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Username@fdm.co.uk",
-                          labelText: "Email Address",
-                        )),
-                    RaisedButton(
-                        child: Text("Register this account"),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            _defaultPassword = randomString(10);
-                            print(_defaultPassword); // for debug
-                            dynamic result =
-                                await _auth.registerWithEmailAndPassword(
-                                    _email, _defaultPassword);
-                            if (result == null) {
-                              setState(() => error =
-                                  "Attempt to register account unsuccessful (invalid email?)");
-                            } else {
-                              try {
-                                await _auth.resetPassword(_email);
-                                Fluttertoast.showToast(
-                                  msg: "Succesfully registered account",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIos: 2,
-                                  backgroundColor: Colors.white,
-                                  textColor: Colors.black,
-                                  fontSize: 16,
-                                );
-                                Navigator.of(context, rootNavigator: true).pop(result);
-                              } catch (e) {
-                                setState(() => error =
-                                    "Attempt to send password reset email unsuccessful (invalid email?)");
-                                print(e); // For debug to console
-                              }
-                            }
+        content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextFormField(
+                    validator: Validator.emptyEmail,
+                    onChanged: (value) {
+                      setState(() {
+                        _email = value;
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      hintText: "Username@fdm.co.uk",
+                      labelText: "Email Address",
+                    )),
+                RaisedButton(
+                    child: Text("Register this account"),
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        _defaultPassword = randomString(10);
+                        print(_defaultPassword); // for debug
+                        dynamic result =
+                            await _auth.registerWithEmailAndPassword(
+                                _email, _defaultPassword);
+                        if (result == null) {
+                          setState(() => error =
+                              "Attempt to register account unsuccessful (invalid email?)");
+                        } else {
+                          try {
+                            await _auth.resetPassword(_email);
+                            Fluttertoast.showToast(
+                              msg: "Succesfully registered account",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIos: 2,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.black,
+                              fontSize: 16,
+                            );
+                            Navigator.of(context, rootNavigator: true)
+                                .pop(result);
+                          } catch (e) {
+                            setState(() => error =
+                                "Attempt to send password reset email unsuccessful (invalid email?)");
+                            print(e); // For debug to console
                           }
-                        }),
-                    Text(error,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 14,
-                        ))
-                  ],
-                )));
+                        }
+                      }
+                    }),
+                Text(error,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                    ))
+              ],
+            )));
   }
 }

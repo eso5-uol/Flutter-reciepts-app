@@ -19,7 +19,6 @@ class _WrapperState extends State<Wrapper> {
     final user = Provider.of<User>(context);
 
     //return either home or authenticate widget
-
     if (user == null) {
       return Authenticate();
     } else {

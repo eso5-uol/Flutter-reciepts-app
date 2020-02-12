@@ -6,9 +6,6 @@ import 'package:provider/provider.dart';
 
 
 class Home extends StatelessWidget {
-//  final User user;
-//
-//  Home({this.user});
 
   final AuthService _auth = AuthService();
 

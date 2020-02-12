@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:fdm_expenses_app/validators.dart';
 import 'package:provider/provider.dart';
+import 'package:random_string/random_string.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -19,6 +20,8 @@ class _SignInState extends State<SignIn> {
   String _email = "";
   String _password = "";
   String error = "";
+  var passwordMap = {};
+  int accountLockNumber = 5; //number of incorrect attempts user has before locked out
 
   resetPasswordLinkAlert(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -100,6 +103,17 @@ class _SignInState extends State<SignIn> {
                     if (result == null) {
                       HapticFeedback.vibrate();
                       setState(() => error = "Login credentials incorrect");
+                      if (passwordMap[_email] == accountLockNumber - 1) {
+                        _auth.changePassword(randomString(10));
+                        setState(() => error = "Account locked, please reset password");
+                      } else {
+                        try {
+                          passwordMap[_email] ++;
+                        } catch(e) {
+                          passwordMap[_email] = 1;
+                        }
+                      }
+
                     } else {
                       Fluttertoast.showToast(
                         msg: "Successfully logged in",
@@ -116,7 +130,7 @@ class _SignInState extends State<SignIn> {
                   }
                 },
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 5,),
               RaisedButton(
                 color: Colors.pink[400],
                 onPressed: () {
@@ -129,7 +143,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 5,),
               RaisedButton(
                 child: Text("base67480@gmail.com"),
                 color: Colors.red[300],
@@ -146,7 +160,7 @@ class _SignInState extends State<SignIn> {
                   );
                 },
               ),
-              SizedBox(height: 12,),
+              SizedBox(height: 10,),
               Text(
                 error,
                 style: TextStyle(

@@ -61,6 +61,7 @@ class _RegisterState extends State<Register> {
                                   textColor: Colors.black,
                                   fontSize: 16,
                                 );
+                                Navigator.of(context, rootNavigator: true).pop(result);
                               } catch (e) {
                                 setState(() => error =
                                     "Attempt to send password reset email unsuccessful (invalid email?)");

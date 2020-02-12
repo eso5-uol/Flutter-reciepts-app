@@ -14,7 +14,7 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
 
   String _email = "";
-  String _defaultPassword = "default";
+  String _defaultPassword = randomString(10);
   String error = "";
 
   @override
@@ -45,6 +45,8 @@ class _RegisterState extends State<Register> {
                         child: Text("Register this account"),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
+                            _defaultPassword = randomString(10);
+                            print(_defaultPassword); // for debug
                             dynamic result =
                                 await _auth.registerWithEmailAndPassword(
                                     _email, _defaultPassword);

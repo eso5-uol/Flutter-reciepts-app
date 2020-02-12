@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:fdm_expenses_app/validators.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:random_string/random_string.dart';
 
 class Register extends StatefulWidget {
   @override

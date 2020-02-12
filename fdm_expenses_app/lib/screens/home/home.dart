@@ -21,10 +21,9 @@ class Home extends StatelessWidget {
           RaisedButton(
               child: Text('Register an account'),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Register()),
-                );
+                showDialog(context: context, builder: (_) {
+                  return Register();
+                });
               }),
         ],
       ),

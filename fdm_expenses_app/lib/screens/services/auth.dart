@@ -7,7 +7,7 @@ class AuthService {
 
   //create user object from firebase user
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null ? User(uid: user.uid, email: user.email, currentIndex: 0) : null;
   }
 
   //auth change user stream
@@ -63,9 +63,32 @@ class AuthService {
     }
   }
 
-  //send password reset email
-  Future sendPasswordResetEmail(String email) async {
-    return _auth.sendPasswordResetEmail(email: email);
+//<<<<<<< HEAD
+//  //send password reset email
+//  Future sendPasswordResetEmail(String email) async {
+//    return _auth.sendPasswordResetEmail(email: email);
+
+  //reset password with email
+  Future resetPassword(String email) async {
+    try {
+      return await _auth.sendPasswordResetEmail(email: email);
+    } catch(e) {
+      print(e.toString());
+      return null;
+    }
+  }
+  
+  //change password 
+  Future changePassword(String password) async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    try {
+      print("OAKSDNFGAOPSKIFNAOKSFNAOLSKFN");
+      await user.updatePassword(password);
+      return true;
+    } catch(error) {
+      return error.toString();
+    }
+
   }
 
 

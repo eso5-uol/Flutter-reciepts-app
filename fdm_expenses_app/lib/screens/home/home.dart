@@ -1,6 +1,10 @@
+import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:fdm_expenses_app/screens/register/register.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 
 class Home extends StatelessWidget {
 
@@ -8,32 +12,23 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.brown[50],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        title: Text("FDM Expenses"),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            onPressed: () async {
-              await _auth.signOut();
-            },
-            label: Text("Log out"),
-          )
+    final user = Provider.of<User>(context);
+
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text("Home Screen"),
+          RaisedButton(
+              child: Text('Register an account'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Register()),
+                );
+              }),
         ],
       ),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Register an account'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Register()),
-            );
-          }
-        )
-      )
+
     );
   }
 }

@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
                                   "Attempt to register account unsuccessful");
                             } else {
                               try {
-                                await _auth.sendPasswordResetEmail(_email);
+                                await _auth.resetPassword(_email);
                                 Fluttertoast.showToast(
                                   msg: "Succesfully registered account",
                                   toastLength: Toast.LENGTH_SHORT,

@@ -42,28 +42,52 @@ class Home extends StatelessWidget {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.hasData) {
             // Firestore has a document in the 'users' collection with the current user's UID
-            return checkRole(snapshot.data);
+            return checkRole(snapshot.data, context);
           }
           return LinearProgressIndicator();
         });
   }
 
-  Container checkRole(DocumentSnapshot snapshot) {
+  Container checkRole(DocumentSnapshot snapshot, context) {
     if (snapshot.data == null) {
       return Container(
         child: Text("No data set in Firestore for the current user - check Firestore!")
       );
     }
     if (snapshot.data['role'] == 'admin') {
-      return Container(
-          child: Text("Role is ADMIN")
-      );
-      // return adminPage();
+      return adminPage(context);
     } else {
-      return Container(
-          child: Text("Role is USER (anything other than ADMIN)")
-      );
-      // return userPage();
+      return userPage(context);
     }
   }
+
+  Container adminPage(context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text("Home Screen"),
+          RaisedButton(
+              child: Text('Register an account'),
+              onPressed: () {
+                showDialog(context: context, builder: (_) {
+                  return Register();
+                });
+              }),
+        ],
+      ),
+
+    );
+  }
+
+  Container userPage(context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text("Home Screen"),
+          Text("User page - user buttons go here")
+        ]
+      )
+    );
+  }
+
 }

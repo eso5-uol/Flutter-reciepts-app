@@ -4,6 +4,7 @@ import 'package:fdm_expenses_app/screens/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class Home extends StatelessWidget {

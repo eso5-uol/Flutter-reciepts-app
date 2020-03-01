@@ -14,6 +14,7 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
 
   String _email = "";
+  bool _isAdmin = false;
   String _defaultPassword = randomString(10);
   String error = "";
 
@@ -37,6 +38,15 @@ class _RegisterState extends State<Register> {
                       hintText: "Username@fdm.co.uk",
                       labelText: "Email Address",
                     )),
+                CheckboxListTile(
+                  value: _isAdmin,
+                  onChanged: (value) {
+                    setState(() {
+                      _isAdmin = value;
+                    });
+                  },
+                  title: new Text("Grant Admin permissions"),
+                ),
                 RaisedButton(
                     child: Text("Register this account"),
                     onPressed: () async {

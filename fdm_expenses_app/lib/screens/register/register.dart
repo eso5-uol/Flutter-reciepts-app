@@ -65,24 +65,17 @@ class _RegisterState extends State<Register> {
                         } else {
                           try {
                             await _auth.resetPassword(_email);
-                            dynamic newLoginResult = await _auth.signInWithEmailAndPassword(_email, _defaultPassword);
-                            if (newLoginResult == null) {
-                              setState(() => error =
-                                "Attempt to register account unsuccessful (couldn't login with default password");
-                            } else {
-                              User newUser = newLoginResult;
-                              String isAdminString = "user";
-                              if (_isAdmin) {
-                                isAdminString = "admin";
-                              }
-                              databaseReference.collection("users")
+                            String isAdminString = "user";
+                            User newUser = result;
+                            if (_isAdmin) {
+                              isAdminString = "admin";
+                            }
+                            databaseReference.collection("users")
                                 .document(newUser.uid)
                                 .setData({
                                   'email': _email,
                                   'role': isAdminString
-                              });
-
-                            }
+                            });
                             Fluttertoast.showToast(
                               msg: "Succesfully registered account",
                               toastLength: Toast.LENGTH_SHORT,

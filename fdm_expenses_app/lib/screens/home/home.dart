@@ -62,6 +62,7 @@ class Home extends StatelessWidget {
   }
 
   Container adminPage(context) {
+    final user = Provider.of<User>(context);
     return Container(
       child: Column(
         children: <Widget>[
@@ -73,6 +74,7 @@ class Home extends StatelessWidget {
                   return Register();
                 });
               }),
+          Text(user.uid)
         ],
       ),
 
@@ -80,11 +82,13 @@ class Home extends StatelessWidget {
   }
 
   Container userPage(context) {
+    final user = Provider.of<User>(context);
     return Container(
       child: Column(
         children: <Widget>[
           Text("Home Screen"),
-          Text("User page - user buttons go here")
+          Text("User page - user buttons go here"),
+          Text(user.uid)
         ]
       )
     );

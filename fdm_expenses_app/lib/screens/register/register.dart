@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fdm_expenses_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:fdm_expenses_app/validators.dart';
@@ -12,6 +14,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final databaseReference = Firestore.instance;
 
   String _email = "";
   bool _isAdmin = false;
@@ -62,6 +65,24 @@ class _RegisterState extends State<Register> {
                         } else {
                           try {
                             await _auth.resetPassword(_email);
+                            dynamic newLoginResult = await _auth.signInWithEmailAndPassword(_email, _defaultPassword);
+                            if (newLoginResult == null) {
+                              setState(() => error =
+                                "Attempt to register account unsuccessful (couldn't login with default password");
+                            } else {
+                              User newUser = newLoginResult;
+                              String isAdminString = "user";
+                              if (_isAdmin) {
+                                isAdminString = "admin";
+                              }
+                              databaseReference.collection("users")
+                                .document(newUser.uid)
+                                .setData({
+                                  'email': _email,
+                                  'role': isAdminString
+                              });
+
+                            }
                             Fluttertoast.showToast(
                               msg: "Succesfully registered account",
                               toastLength: Toast.LENGTH_SHORT,

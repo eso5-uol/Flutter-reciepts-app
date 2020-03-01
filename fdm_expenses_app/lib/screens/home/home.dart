@@ -38,15 +38,32 @@ class Home extends StatelessWidget {
             .snapshots(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else if (snapshot.hasData) {
-                return Text('Firestore has a document for the current UID');
-              }
-              return LinearProgressIndicator();
-            }
-          );
-        }
-
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else if (snapshot.hasData) {
+            // Firestore has a document in the 'users' collection with the current user's UID
+            return checkRole(snapshot.data);
+          }
+          return LinearProgressIndicator();
+        });
   }
 
+  Container checkRole(DocumentSnapshot snapshot) {
+    if (snapshot.data == null) {
+      return Container(
+        child: Text("No data set in Firestore for the current user - check Firestore!")
+      );
+    }
+    if (snapshot.data['role'] == 'admin') {
+      return Container(
+          child: Text("Role is ADMIN")
+      );
+      // return adminPage();
+    } else {
+      return Container(
+          child: Text("Role is USER (anything other than ADMIN)")
+      );
+      // return userPage();
+    }
+  }
+}

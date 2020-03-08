@@ -37,7 +37,7 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } catch(e) {
       print(e.toString());
-      return null;
+      return e.toString();
     }
   }
 

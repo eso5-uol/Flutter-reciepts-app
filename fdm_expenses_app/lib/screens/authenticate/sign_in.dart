@@ -97,10 +97,20 @@ class _SignInState extends State<SignIn> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
-                    if (result == null) {
+                    print("asdasd");
+                    print(result);
+                    print("laksfnasf");
+                    if (result == "PlatformException(ERROR_INVALID_EMAIL, The email address is badly formatted., null)") {
                       HapticFeedback.vibrate();
-                      setState(() => error = "Login credentials incorrect");
-                    } else {
+                      setState(() => error = "Email address is formatted badly!");
+                    } else if (result == "PlatformException(ERROR_USER_NOT_FOUND, There is no user record corresponding to this identifier. The user may have been deleted., null)" ||
+                                result == "PlatformException(ERROR_WRONG_PASSWORD, The password is invalid or the user does not have a password., null)") {
+                      HapticFeedback.vibrate();
+                      setState(() => error = "Incorrect Login Details!");
+                    }
+
+
+                    else {
                       Fluttertoast.showToast(
                         msg: "Successfully logged in",
                         toastLength: Toast.LENGTH_SHORT,

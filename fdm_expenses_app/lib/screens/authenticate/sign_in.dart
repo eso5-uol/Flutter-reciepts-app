@@ -63,7 +63,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               SizedBox(height: 20,),
               TextFormField(
-                validator: Validator.emptyEmail,
+                validator: Validator.emailSignIn,
                 onChanged: (value) {
                   setState(() {
                     _email = value;
@@ -88,6 +88,14 @@ class _SignInState extends State<SignIn> {
                 obscureText: true,
               ),
               SizedBox(height: 20),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(height: 20),
               RaisedButton(
                 color: Colors.pink[400],
                 child: Text(
@@ -95,22 +103,17 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
+                  setState(() => error = " ");
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
-                    print("asdasd");
-                    print(result);
-                    print("laksfnasf");
-                    if (result == "PlatformException(ERROR_INVALID_EMAIL, The email address is badly formatted., null)") {
-                      HapticFeedback.vibrate();
-                      setState(() => error = "Email address is formatted badly!");
-                    } else if (result == "PlatformException(ERROR_USER_NOT_FOUND, There is no user record corresponding to this identifier. The user may have been deleted., null)" ||
+                    if (result == "PlatformException(ERROR_USER_NOT_FOUND, There is no user record corresponding to this identifier. The user may have been deleted., null)" ||
                                 result == "PlatformException(ERROR_WRONG_PASSWORD, The password is invalid or the user does not have a password., null)") {
                       HapticFeedback.vibrate();
                       setState(() => error = "Incorrect Login Details!");
-                    }
-
-
-                    else {
+                    } else if (result == "PlatformException(ERROR_TOO_MANY_REQUESTS, We have blocked all requests from this device due to unusual activity. Try again later. [ Too many unsuccessful login attempts. Please try again later. ], null)") {
+                      HapticFeedback.vibrate();
+                      setState(() => error = "Too many requests, Please try again later");
+                    } else {
                       Fluttertoast.showToast(
                         msg: "Successfully logged in",
                         toastLength: Toast.LENGTH_SHORT,
@@ -156,14 +159,7 @@ class _SignInState extends State<SignIn> {
                   );
                 },
               ),
-              SizedBox(height: 12,),
-              Text(
-                error,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 14,
-                ),
-              )
+              SizedBox(height: 12,)
             ],
           ),
         ),

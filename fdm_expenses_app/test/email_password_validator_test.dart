@@ -4,12 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
 
   test('empty email returns error string', () {
-    var result = Validator.emptyEmail('');
+    var result = Validator.emailSignIn('');
     expect(result, 'Enter an email');
   });
 
   test('non-empty email returns null', () {
-    var result = Validator.emptyEmail("value");
+    var result = Validator.emailSignIn("value");
     expect(result, null);
   }
   );

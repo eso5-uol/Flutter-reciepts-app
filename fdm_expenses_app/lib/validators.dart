@@ -1,6 +1,15 @@
 class Validator {
 
-  static String emptyEmail(String value) {
+  static String emailSignIn(String value) {
+
+    String pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
+
+    RegExp regExp = new RegExp(pattern);
+    if (value.isEmpty == false && !regExp.hasMatch(value)) {
+      print("test");
+      return "Email is formatted badly!";
+    }
+
     return value.isEmpty ? 'Enter an email' : null;
   }
 
@@ -14,7 +23,7 @@ class Validator {
       return "Enter a password";
     }
 
-    String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp regExp = new RegExp(pattern);
     if (!regExp.hasMatch(password)) {
       return "Password does not meet the requirements";

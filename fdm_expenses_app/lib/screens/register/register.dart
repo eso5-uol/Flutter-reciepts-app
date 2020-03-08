@@ -31,7 +31,7 @@ class _RegisterState extends State<Register> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 TextFormField(
-                    validator: Validator.emptyEmail,
+                    validator: Validator.emailSignIn,
                     onChanged: (value) {
                       setState(() {
                         _email = value;

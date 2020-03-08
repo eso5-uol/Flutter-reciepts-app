@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:fdm_expenses_app/validators.dart';
 import 'package:provider/provider.dart';
+import 'package:random_string/random_string.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -19,6 +20,9 @@ class _SignInState extends State<SignIn> {
   String _email = "";
   String _password = "";
   String error = "";
+  var passwordMap = {};
+  int accountLockNumber = 5; //number of incorrect attempts user has before locked out
+
 
   resetPasswordLinkAlert(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -110,10 +114,23 @@ class _SignInState extends State<SignIn> {
                                 result == "PlatformException(ERROR_WRONG_PASSWORD, The password is invalid or the user does not have a password., null)") {
                       HapticFeedback.vibrate();
                       setState(() => error = "Incorrect Login Details!");
+
+                      if (passwordMap[_email] == accountLockNumber - 1) {
+                        _auth.changePassword(randomString(10));
+                        setState(() => error = "Account locked, please reset password");
+                      } else {
+                        try {
+                          passwordMap[_email] ++;
+                        } catch(e) {
+                          passwordMap[_email] = 1;
+                        }
+                      }
                     } else if (result == "PlatformException(ERROR_TOO_MANY_REQUESTS, We have blocked all requests from this device due to unusual activity. Try again later. [ Too many unsuccessful login attempts. Please try again later. ], null)") {
                       HapticFeedback.vibrate();
                       setState(() => error = "Too many requests, Please try again later");
-                    } else {
+                    }
+
+                    else {
                       Fluttertoast.showToast(
                         msg: "Successfully logged in",
                         toastLength: Toast.LENGTH_SHORT,

@@ -6,7 +6,6 @@ class Validator {
 
     RegExp regExp = new RegExp(pattern);
     if (value.isEmpty == false && !regExp.hasMatch(value)) {
-      print("test");
       return "Email is formatted badly!";
     }
 

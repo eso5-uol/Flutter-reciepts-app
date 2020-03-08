@@ -8,8 +8,8 @@ void main() {
     expect(result, 'Enter an email');
   });
 
-  test('non-empty email returns null', () {
-    var result = Validator.emailSignIn("value");
+  test('valid email input returns null', () {
+    var result = Validator.emailSignIn("value@gmail.com");
     expect(result, null);
   }
   );
@@ -22,7 +22,12 @@ void main() {
   test('non-empty password returns null', () {
     var result = Validator.emptyPassword("value");
     expect(result, null);
-  }
-  );
+  });
+
+  test('Invalid email address returns error message', () {
+    var result = Validator.emailSignIn("base6740");
+    expect(result, "Email is formatted badly!");
+  });
+
 
 }

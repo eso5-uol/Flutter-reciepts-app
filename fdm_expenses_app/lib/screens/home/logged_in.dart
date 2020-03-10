@@ -19,7 +19,7 @@ class _LoggedInState extends State<LoggedIn> {
     switch (user.currentIndex){
       case 0: return Home();
       case 1: return Settings();
-      default: return Settings();
+      default: return Home();
     }
   }
 

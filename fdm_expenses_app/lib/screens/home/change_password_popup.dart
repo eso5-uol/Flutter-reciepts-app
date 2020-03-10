@@ -2,6 +2,7 @@ import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:fdm_expenses_app/validators.dart';
 
@@ -41,7 +42,7 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
                 "1 number"
             ),
             Text(
-                "1 special character (! @ # & * ~)"
+                "1 special character (! @ # & * ~ .)"
             ),
             TextFormField(
               validator: Validator.changePassword,
@@ -88,6 +89,15 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
               if (Validator.matchingPassword(_password1, _password2)){
                 dynamic successful = await _auth.changePassword(_password1);
                 if (successful == true) {
+                  Fluttertoast.showToast(
+                    msg: "Successfully changed password",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 2,
+                    backgroundColor: Colors.white,
+                    textColor: Colors.black,
+                    fontSize: 16,
+                  );
                   Navigator.of(context).pop();
                 } else {
                   setState(() => error = "An error has occured, please try later");

@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          Text("Home Screen"),
+//          Text("Home Screen"),
           RaisedButton(
               child: Text('Register an account'),
               onPressed: () {
@@ -74,7 +74,7 @@ class Home extends StatelessWidget {
                   return Register();
                 });
               }),
-          Text(user.uid)
+//          Text(user.uid)
         ],
       ),
 
@@ -86,9 +86,9 @@ class Home extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          Text("Home Screen"),
+//          Text("Home Screen"),
           Text("User page - user buttons go here"),
-          Text(user.uid)
+//          Text(user.uid)
         ]
       )
     );

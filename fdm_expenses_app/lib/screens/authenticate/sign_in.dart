@@ -164,22 +164,22 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               SizedBox(height: 5,),
-              RaisedButton(
-                child: Text("base67480@gmail.com"),
-                color: Colors.red[300],
-                onPressed: () async {
-                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'Pa55word!');
-                  Fluttertoast.showToast(
-                    msg: "Successfully logged in",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIos: 2,
-                    backgroundColor: Colors.white,
-                    textColor: Colors.black,
-                    fontSize: 16,
-                  );
-                },
-              ),
+//              RaisedButton(
+//                child: Text("base67480@gmail.com"),
+//                color: Colors.red[300],
+//                onPressed: () async {
+//                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'Pa55word!');
+//                  Fluttertoast.showToast(
+//                    msg: "Successfully logged in",
+//                    toastLength: Toast.LENGTH_SHORT,
+//                    gravity: ToastGravity.BOTTOM,
+//                    timeInSecForIos: 2,
+//                    backgroundColor: Colors.white,
+//                    textColor: Colors.black,
+//                    fontSize: 16,
+//                  );
+//                },
+//              ),
               SizedBox(height: 12,)
             ],
           ),

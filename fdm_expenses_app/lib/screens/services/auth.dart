@@ -1,5 +1,6 @@
 import 'package:fdm_expenses_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class AuthService {
 
@@ -44,7 +45,9 @@ class AuthService {
   //register with email and password
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseApp _secondaryAuth = await FirebaseApp.configure(name: 'Secondary', options: await FirebaseApp.instance.options);
+      // AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      AuthResult result = await FirebaseAuth.fromApp(_secondaryAuth).createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
     } catch(e) {

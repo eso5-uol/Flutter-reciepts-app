@@ -42,7 +42,7 @@ class _ChangePasswordPopupState extends State<ChangePasswordPopup> {
                 "1 number"
             ),
             Text(
-                "1 special character (! @ # & * ~)"
+                "1 special character (! @ # & * ~ .)"
             ),
             TextFormField(
               validator: Validator.changePassword,

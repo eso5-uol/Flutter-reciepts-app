@@ -23,7 +23,6 @@ class _SignInState extends State<SignIn> {
   var passwordMap = {};
   int accountLockNumber = 5; //number of incorrect attempts user has before locked out
 
-
   resetPasswordLinkAlert(BuildContext context) {
     TextEditingController customController = TextEditingController();
     return showDialog(context: context, builder: (context) {

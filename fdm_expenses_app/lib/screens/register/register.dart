@@ -6,6 +6,8 @@ import 'package:fdm_expenses_app/validators.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_string/random_string.dart';
 
+import '../../models/user.dart';
+
 class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();
@@ -59,10 +61,14 @@ class _RegisterState extends State<Register> {
                         dynamic result =
                             await _auth.registerWithEmailAndPassword(
                                 _email, _defaultPassword);
-                        if (result == null) {
+                        if (result == "PlatformException(ERROR_EMAIL_ALREADY_IN_USE, The email address is already in use by another account., null)") {
                           setState(() => error =
-                              "Attempt to register account unsuccessful (invalid email?)");
-                        } else {
+                              "Email already registered");
+                        } else if (result == "PlatformException(ERROR_INVALID_EMAIL, The email address is badly formatted., null)") {
+                          setState(() => error =
+                          "Email is formatted badly");
+                        } else if (result is User) {
+//                        else {
                           try {
                             await _auth.resetPassword(_email);
                             String isAdminString = "user";
@@ -92,6 +98,9 @@ class _RegisterState extends State<Register> {
                                 "Attempt to send password reset email unsuccessful (invalid email?)");
                             print(e); // For debug to console
                           }
+                        } else {
+                          setState(() => error =
+                          "An error has occured, please try again later");
                         }
                       }
                     }),

@@ -63,11 +63,6 @@ class AuthService {
     }
   }
 
-//<<<<<<< HEAD
-//  //send password reset email
-//  Future sendPasswordResetEmail(String email) async {
-//    return _auth.sendPasswordResetEmail(email: email);
-
   //reset password with email
   Future resetPassword(String email) async {
     try {
@@ -81,11 +76,15 @@ class AuthService {
   //change password 
   Future changePassword(String password) async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
     try {
       print("OAKSDNFGAOPSKIFNAOKSFNAOLSKFN");
       await user.updatePassword(password);
+      print("ALKSNFl;kanf");
       return true;
     } catch(error) {
+      print(error);
+      print("lakdsnfglaskfnlaskfnlaksfnlasfnlaksnflkasnflkasnflkasnflkasnf");
       return error.toString();
     }
 

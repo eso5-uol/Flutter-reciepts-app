@@ -21,7 +21,7 @@ class _SignInState extends State<SignIn> {
   String _password = "";
   String error = "";
   var passwordMap = {};
-  int accountLockNumber = 5; //number of incorrect attempts user has before locked out
+  int accountLockNumber = 3; //number of incorrect attempts user has before locked out
 
   resetPasswordLinkAlert(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -53,10 +53,10 @@ class _SignInState extends State<SignIn> {
     final user = Provider.of<User>(context);
 
     return Scaffold(
-      backgroundColor: Colors.brown[100],
+//      backgroundColor: Colors.brown[100],
       appBar: AppBar(
         title: Text("Sign into FDM Expenses"),
-        backgroundColor: Colors.brown[400],
+//        backgroundColor: Colors.brown[400],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
@@ -115,7 +115,10 @@ class _SignInState extends State<SignIn> {
                       setState(() => error = "Incorrect Login Details!");
 
                       if (passwordMap[_email] == accountLockNumber - 1) {
-                        _auth.changePassword(randomString(10));
+                        print("change passwowrd");
+                        dynamic changePasswordResult = await _auth.changePassword(randomString(10));
+                        print(changePasswordResult);
+                        print("Done");
                         setState(() => error = "Account locked, please reset password");
                       } else {
                         try {

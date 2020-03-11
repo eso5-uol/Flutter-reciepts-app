@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
         children: <Widget>[
 //          Text("Home Screen"),
           RaisedButton(
-              child: Text('Register an account'),
+              child: Text('Expense Form'),
               onPressed: () {
                 showDialog(
                     context: context,

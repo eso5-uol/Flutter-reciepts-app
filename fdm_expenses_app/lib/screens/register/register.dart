@@ -50,7 +50,7 @@ class _RegisterState extends State<Register> {
                       _isAdmin = value;
                     });
                   },
-                  title: new Text("Grant Admin permissions"),
+                  title: new Text("Create as Manager"),
                 ),
                 RaisedButton(
                     child: Text("Register this account"),

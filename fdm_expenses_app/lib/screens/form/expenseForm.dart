@@ -1,6 +1,8 @@
 import 'package:fdm_expenses_app/models/user.dart';
+import 'package:fdm_expenses_app/screens/form/filePicker.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -81,8 +83,6 @@ class _ExpenceFormState extends State<ExpenceForm> {
     //Current user
     final user = Provider.of<User>(context);
 
-    //////////TODO : workout where to put the ListView so fields can be scrolled.
-
     //constructs the form
     return Scaffold(
       key: _scaffoldKey,
@@ -93,8 +93,7 @@ class _ExpenceFormState extends State<ExpenceForm> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: ListView(
-          children: <Widget>[
+        child: ListView(children: <Widget>[
           Form(
             key: _formKey,
             child: Column(
@@ -267,6 +266,8 @@ class _ExpenceFormState extends State<ExpenceForm> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                 ),
 
+                new MyFilePicker(),
+
                 SizedBox(height: 20),
                 SizedBox(
                   height: 5,
@@ -317,8 +318,8 @@ class _ExpenceFormState extends State<ExpenceForm> {
                 )
               ],
             ),
-          ),]
-        ),
+          ),
+        ]),
       ),
     );
   }

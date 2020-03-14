@@ -1,0 +1,62 @@
+Information before meeting:
+        
+* No questions for client discussed
+
+
+Information from meeting:
+
+
+* Showed client old app (How the expense form)
+   * Adding 1 claim/receipt
+      * Went on overnight stay, expense back travel (train ticket eg), and breakfast.
+      * We said we can add category for each section
+      * Add the total to the bottom of the expense form/page
+      * We don't need to add a vat fee
+   * Upload an image of the receipt to the submission, for proof
+
+
+* We completed all of the previous tasks from the previous meeting, but the app is failing to launch. Ended up using an emulator on a laptop
+
+
+* Asked if it can work offline, we said no because you need to connect to the severs
+   * Asked if it can be done offline due to internet issues in the office
+
+
+* Stuff we want to work on next sprint
+   * Admins can create user accounts [finished this sprint]
+   * Only one is that “users can submit expense claims”
+   * Admin can view all of the expense claims
+
+
+* Showing client new/updated app
+   * Signs u in, and get notifications
+   * Allows u to register account (we used one of krish’s emails in his notebook)
+   * Admin adds email to list, user gets email that allows them to set a password, they set/change their password, user then logs into the app via the email and password set and signs you into the app.
+   * Added validation to the login screen (wrong email etc)
+   * Admin can see the open expense form
+   * Showed client new password change form (needs specific strength)
+* Splitting user stories into smaller stories to split up into the group
+
+
+Information after meeting:
+
+   *Scrum master stuff
+   * communicating what tasks are being completeed
+
+Questions and answers:
+
+
+Questions for/from the Client:
+
+
+1. What happens if a manager leaves?
+2. Someone in their team moves team
+3. Would the manager need to submit an expense form
+
+
+Answers:
+
+
+1. All stuff is done on a database, and fix it on the database
+2. All stuff is done on a database, and fix it on the database
+3. Yes, they would submit it to another manager, goes up the hierarchy

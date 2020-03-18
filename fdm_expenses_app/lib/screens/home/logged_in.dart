@@ -1,3 +1,4 @@
+import 'package:fdm_expenses_app/screens/form/expenseForm.dart';
 import 'package:fdm_expenses_app/screens/home/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import '../services/auth.dart';
 import '../services/auth.dart';
 import 'home.dart';
 import 'home.dart';
+import 'settings.dart';
 
 class LoggedIn extends StatefulWidget {
   @override
@@ -15,12 +17,18 @@ class LoggedIn extends StatefulWidget {
 
 class _LoggedInState extends State<LoggedIn> {
 
-  Widget selectScreen(User user) {
-    switch (user.currentIndex){
-      case 0: return Home();
-      case 1: return Settings();
-      default: return Settings();
-    }
+  int _currentIndex =0;
+  int _selectedIndex = 0;
+
+  final List<Widget> _children = [
+    Home(),
+    Settings(),
+  ];
+
+  void onTabTapped(int index){
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   @override
@@ -43,9 +51,31 @@ class _LoggedInState extends State<LoggedIn> {
           ),
         ],
       ),
-      body: selectScreen(user),
+      floatingActionButtonLocation:
+      FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _selectedIndex ==0
+          ? FloatingActionButton.extended(
+          onPressed: (){
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ExpenseForm()),
+        );
+      },
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
+        elevation: 20.0,
+        icon: const Icon(Icons.add),
+        label: const Text('Add Expense'),
+      )
+          :Container(
+        width: 0,
+        height: 0,
+      ),
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: user.currentIndex,
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -56,15 +86,7 @@ class _LoggedInState extends State<LoggedIn> {
             title: Text("Settings"),
           )
         ],
-        onTap: (index) {
-          setState(() {
-            user.currentIndex = index;
-            print(user.currentIndex);
-          });
-        },
       ),
     );
-
-
   }
 }

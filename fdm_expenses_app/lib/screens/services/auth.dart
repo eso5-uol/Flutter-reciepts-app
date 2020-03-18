@@ -1,13 +1,22 @@
+import 'package:fdm_expenses_app/locator.dart';
 import 'package:fdm_expenses_app/models/user.dart';
+import 'package:fdm_expenses_app/screens/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
 
+  User _currentUser;
+  User get currentUSer => _currentUser;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseService _databaseService = locator<DatabaseService>();
+
+
+
 
   //create user object from firebase user
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid, email: user.email, currentIndex: 0) : null;
+    return user != null ? User(uid: user.uid, email: user.email) : null;
   }
 
   //auth change user stream
@@ -81,6 +90,18 @@ class AuthService {
       return true;
     } catch(error) {
       return error.toString();
+    }
+  }
+
+  Future <bool> isUserLoggedIn() async{
+    var user = await _auth.currentUser();
+    await _populateCurrentUser(user);
+    return user != null;
+  }
+
+  Future _populateCurrentUser(FirebaseUser user) async{
+    if(user != null){
+      _currentUser = await _databaseService.getUser(user.uid);
     }
   }
 

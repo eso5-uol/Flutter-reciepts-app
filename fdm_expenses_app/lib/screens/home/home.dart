@@ -71,7 +71,7 @@ class Home extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (_) {
-                      return ExpenceForm();
+                      return ExpenseForm();
                     });
               }),
 //          Text(user.uid)

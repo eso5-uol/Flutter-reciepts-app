@@ -7,13 +7,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class ExpenceForm extends StatefulWidget {
+class ExpenseForm extends StatefulWidget {
   @override
-  _ExpenceFormState createState() => _ExpenceFormState();
+  _ExpenseFormState createState() => _ExpenseFormState();
 }
 
 //My class
-class _ExpenceFormState extends State<ExpenceForm> {
+class _ExpenseFormState extends State<ExpenseForm> {
   //auth needed to assign user?
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();

@@ -1,3 +1,4 @@
+
 import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/form/filePicker.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:convert';
 
 class ExpenseForm extends StatefulWidget {
   @override
@@ -19,10 +23,14 @@ class _ExpenseFormState extends State<ExpenseForm> {
   final _formKey = GlobalKey<FormState>();
   //skaffoldkey needed to show the snackbar with pop up message in
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   String _department = "";
   String _client = "";
-  DateTime _date;
+DateTime selectedDate = DateTime.now();
+final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+  String _currency;
+  List<String> currencies = ['CAD', 'HKD', 'ISK', 'PHP', 'DKK', 'HUF', 'CZK', 'AUD', 'RON', 'SEK', 'IDR', 'INR', 'BRL', 'RUB', 'HRK', 'JPY', 'THB', 'CHF', 'SGD', 'PLN', 'BGN', 'TRY', 'CNY', 'NOK', 'NZD', 'ZAR', 'USD', 'MXN', 'ILS', 'GBP', 'KRW', 'MYR'];
+  String fromCurrency = "GBP";
 
   String error = "";
 
@@ -36,25 +44,12 @@ class _ExpenseFormState extends State<ExpenseForm> {
   //used to set form text fields
   final TextEditingController _controller = new TextEditingController();
   //displays the date picker and checks date is not in future
-  Future _chooseDate(BuildContext context, String initialDateString) async {
-    var now = new DateTime.now();
-    var initialDate = convertToDate(initialDateString) ?? now;
-    initialDate = (initialDate.year >= 1900 && initialDate.isBefore(now)
-        ? initialDate
-        : now);
-
-    var result = await showDatePicker(
-        context: context,
-        initialDate: initialDate,
-        firstDate: new DateTime(1900),
-        lastDate: new DateTime.now());
-
-    if (result == null) return;
-
-    setState(() {
-      _controller.text = new DateFormat.yMd().format(result);
-    });
-  }
+  Future<DateTime> _selectDateTime(BuildContext context) => showDatePicker(
+    context: context,
+    initialDate: DateTime.now().add(Duration(seconds: 1)),
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2100),
+  );
 
 // Formats dates
   DateTime convertToDate(String input) {
@@ -66,11 +61,33 @@ class _ExpenseFormState extends State<ExpenseForm> {
     }
   }
 
-//Uses the snackbar to pop up a message
+  @override
+  void initState() {
+    super.initState();
+    _loadCurrencies();
+  }
+
+
+  Future<String> _loadCurrencies() async {
+    String uri = "http://api.openrates.io/latest";
+    var response = await http
+        .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
+    var responseBody = json.decode(response.body);
+    Map curMap = responseBody['rates'];
+    currencies = curMap.keys.toList();
+    setState(() {});
+    print(currencies);
+    return "Success";
+  }
+  
+
+//Uses the snackBar to pop up a message
   void showMessage(String message, [MaterialColor color = Colors.red]) {
     _scaffoldKey.currentState.showSnackBar(
         new SnackBar(backgroundColor: color, content: new Text(message)));
   }
+
+
 
   //Function run when submit is clicked
   void _submitForm() {
@@ -98,174 +115,65 @@ class _ExpenseFormState extends State<ExpenseForm> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                //Department
-                TextFormField(
-                  //validator: Validator.emptyEmail,
-                  onChanged: (value) {
-                    setState(() {
-                      _department = value;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.book),
-                    labelText: "Department/Stream",
-                  ),
-                ),
 
                 //Client
-                TextFormField(
-                  //validator: Validator.emptyPassword,
-                  onChanged: (value) {
-                    setState(() {
-                      _client = value;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.person),
-                    labelText: "Client/Person seen",
-                  ),
-                  obscureText: true,
-                ),
+//                TextFormField(
+//                  //validator: Validator.emptyPassword,
+//                  onChanged: (value) {
+//                    setState(() {
+//                      _client = value;
+//                    });
+//                  },
+//                  decoration: const InputDecoration(
+//                    icon: const Icon(Icons.person),
+//                    labelText: "Client/Person seen",
+//                  ),
+//                  obscureText: true,
+//                ),
 
-                //Expence Date
-                new Row(children: <Widget>[
-                  new Expanded(
-                      child: new TextFormField(
-                          decoration: new InputDecoration(
-                            icon: const Icon(Icons.perm_contact_calendar),
-                            hintText: 'Enter the date you incurred the cost',
-                            labelText: 'Expence date',
-                          ),
-                          controller: _controller,
-                          keyboardType: TextInputType.datetime,
-                          validator: (val) =>
-                              isValidDate(val) ? null : 'Not a valid date')),
-                  new IconButton(
-                    icon: new Icon(Icons.calendar_today),
-                    tooltip: 'Choose date',
-                    onPressed: (() {
-                      _chooseDate(context, _controller.text);
-                    }),
-                  )
-                ]),
+                //Expense Date
+                new Row(
+                  children: <Widget>[
+                    new Expanded(
+                      child:
+                        new RaisedButton.icon(
+                          onPressed: () async {
+                            final selectedDate = await _selectDateTime(context);
+                            if(selectedDate == null) return;
+                            setState(() {
+                              this.selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+                            });
+                          },
+                            label: Text(DateFormat('dd-MM-yyyy').format(selectedDate)),
+                            icon:Icon(Icons.calendar_today),
+                        )
+                    )
 
-                //Justification
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.edit),
-                    hintText: 'Enter justification of expense ',
-                    labelText: 'Reason',
-                  ),
-                ),
-
-                //Postcode start
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.directions_car),
-                    hintText: 'Postcode you started at',
-                    labelText: 'Postcode of mileage claim origin',
-                  ),
-                ),
-
-                //Postcode end
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.directions_car),
-                    hintText: 'Postcode you ended at',
-                    labelText: 'Postcode of mileage claim destination',
-                  ),
-                ),
-
-                //Distance
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.redo),
-                    hintText: 'miles',
-                    labelText: 'Distance traveled (miles)',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //Mileage cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: 'Mileage cost ',
-                    labelText: 'Mileage cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //flight cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: 'Flight cost ',
-                    labelText: 'Flight cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //other travel cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: ' cost ',
-                    labelText: 'other travel cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //Accommodation  cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: 'cost ',
-                    labelText: 'Accommodation cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //Subsistence cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: ' cost ',
-                    labelText: 'Subsistence cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //Staff entertaining  cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: 'cost ',
-                    labelText: 'Staff entertaining cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                ),
-
-                //Client entertaining  cost
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: 'cost ',
-                    labelText: 'Client entertaining cost ',
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  ]
                 ),
 
                 //Other
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    icon: const Icon(Icons.attach_money),
-                    hintText: 'cost ',
-                    labelText: 'Other costs ',
+                ListTile(
+                  title: new TextFormField(
+                    decoration: const InputDecoration(
+                      icon: const Icon(Icons.attach_money),
+                      hintText: 'cost ',
+                      labelText: 'Amount',
+                    ),
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
                   ),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                 ),
 
+                //Justification
+                ListTile(
+                  title: new TextFormField(
+                    decoration: const InputDecoration(
+                      icon: const Icon(Icons.edit),
+                      hintText: 'Enter reason for expense ',
+                      labelText: 'Reason',
+                    ),
+                  ),
+                ),
                 new MyFilePicker(),
 
                 SizedBox(height: 20),
@@ -323,4 +231,6 @@ class _ExpenseFormState extends State<ExpenseForm> {
       ),
     );
   }
+
+
 }

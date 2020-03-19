@@ -107,91 +107,79 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
   _buildCategoryField(){
     return Card(
       clipBehavior: Clip.none,
-child: DropdownButton(
-  items: _selectCategory
-  .map((value) => DropdownMenuItem(
-    child: Row(
-      children: <Widget>[
-        Text(
-          value,
-          style: TextStyle(color: Colors.black)
-  ),
-      ],
-    ),
-      value: value,
-    )).toList(),
-  onChanged: (selectCategoryType){
-    setState(() {
-      selectedCategory  = selectCategoryType;
-    });
-  },
-  value: selectedCategory,
-  isExpanded: true,
-  hint: Text(
-    'Pick an expense Category',
-    style: TextStyle(color: Colors.grey),
-
-  )
-),
-
-//      child: new FlatButton(
-//        onPressed: () async{
-//          final Category catName = await _asyncSimpleDialog(context);
-//          if(catName == null) return;
-//          },
-//        child: Stack(
-//                children: <Widget>[
-//                  Align(alignment: Alignment.centerRight, child: Icon(Icons.arrow_forward_ios)),
-//                  Align(alignment: Alignment.centerLeft, child: Text("Pick a category ...", textAlign: TextAlign.center,))
-//                ],
-//              ),
-//            ),
-        );
-
+      child: DropdownButton(
+          items: _selectCategory
+              .map((value) => DropdownMenuItem(
+            child: Row(
+              children: <Widget>[
+                Text(
+                    value, style: TextStyle(color: Colors.black)),],),
+            value: value,
+          )).toList(),
+          onChanged: (selectCategoryType){
+            setState(() {
+              selectedCategory  = selectCategoryType;
+            });},
+          value: selectedCategory,
+          isExpanded: true,
+          hint: Text(
+            'Pick an expense Category',
+            style: TextStyle(color: Colors.grey),)),
+    );
   }
 
   _buildDatePicker(){
     return new Row(
-                      children: <Widget>[
-                        new Expanded(
-                          child:
-                            new RaisedButton.icon(
-                              onPressed: () async {
-                                final selectedDate = await _selectDateTime(context);
-                                if(selectedDate == null) return;
-                                setState(() {
-                                  this.selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
-                                });
-                              },
-                                label: Text(DateFormat('dd-MM-yyyy').format(selectedDate)),
-                                icon:Icon(Icons.calendar_today),
-                            )
-                        )
+      children: <Widget>[
+        new Expanded(
+          child:
+            new RaisedButton.icon(
+              onPressed: () async {
+                final selectedDate = await _selectDateTime(context);
+                if(selectedDate == null) return;
+                setState(() {
+                  this.selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+                });
+              },
+                label: Text(DateFormat('dd-MM-yyyy').format(selectedDate)),
+                icon:Icon(Icons.calendar_today),
+            )
+        )
 
-                      ]
-                    );
+      ]
+    );
   }
 
+  _buildAmountField(){
+    return TextFormField(
+      decoration: const InputDecoration(
+    hintText: "Amount",
+    labelText: "Amount",
+      ),
+    keyboardType: TextInputType.numberWithOptions(decimal: true),);
 
-//  @override
-//  void initState() {
-//    super.initState();
-//    _loadCurrencies();
-//  }
+  }
 
-
-//  Future<String> _loadCurrencies() async {
-//    String uri = "http://api.openrates.io/latest";
-//    var response = await http
-//        .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
-//    var responseBody = json.decode(response.body);
-//    Map curMap = responseBody['rates'];
-//    currencies = curMap.keys.toList();
-//    setState(() {});
-//    print(currencies);
-//    return "Success";
-//  }
-//
+  _buildDescriptionField() {
+    return Card(
+      clipBehavior: Clip.none,
+      child: TextFormField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 20.0,
+          ),
+          hintText: "Description",
+          hintStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+          prefix: Text("  "),
+          filled: false
+        ),
+        maxLines: 5,
+      ),
+    );
+  }
 
 //Uses the snackBar to pop up a message
   void showMessage(String message, [MaterialColor color = Colors.red]) {
@@ -216,14 +204,8 @@ child: DropdownButton(
     return StreamBuilder<Expense>(
       stream: DatabaseService(uid: user.uid).userExpense,
       builder: (context, snapshot) {
-        return  Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            child: Form(
-            key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    AppBar(
+        return  Scaffold(
+          appBar: AppBar(
                       actions: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(12.0),
@@ -251,20 +233,35 @@ child: DropdownButton(
                           ),)
                       ],
                     ),
-                    new ListTile(
-                      leading: new Icon(Icons.euro_symbol, color: Colors.black, size: 25.0,),
-                      title: _buildCurrencyField(),
-                    ),
-                    new ListTile(
-                      leading: new Icon(Icons.dashboard, color: Colors.black, size: 25.0,),
-                      title: _buildCategoryField(),
-                    )
-        ])
-              ),
-            )
-        )
-        ;}
-        );}
+            body:  Form(
+                key: _formKey,
+                    child: new ListView(
+                      children: <Widget>[
+                        new ListTile(
+                          leading: new Icon(Icons.euro_symbol, color: Colors.black, size: 25.0,),
+                          title: _buildCurrencyField(),
+                        ),
+                        new ListTile(
+                          leading: new Icon(Icons.dashboard, color: Colors.black, size: 25.0,),
+                          title: _buildCategoryField(),
+                        ),
+                        new ListTile(
+                          leading: new FaIcon(FontAwesomeIcons.coins, color: Colors.black, size: 25.0,),
+                          title: _buildAmountField(),
+                        ),
+                        new ListTile(
+                          leading: new FaIcon(FontAwesomeIcons.calendarCheck, color: Colors.black, size: 25.0,),
+                          title: _buildDatePicker(),
+                        ),
+                        new ListTile(
+                          leading: new FaIcon(FontAwesomeIcons.pen, color: Colors.black, size: 25.0,),
+                          title: _buildDescriptionField(),
+                        )
+                      ],
+                    )));
+      }
+      );
+  }
 //
 //          // backgroundColor: Colors.brown[100],
 //            AppBar(

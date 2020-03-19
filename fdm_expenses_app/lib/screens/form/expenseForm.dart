@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:fdm_expenses_app/models/expense.dart';
 import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/form/filePicker.dart';
@@ -27,33 +29,29 @@ class ExpenseForm extends StatefulWidget {
 class _ExpenseFormState extends State<ExpenseForm> {
   //auth needed to assign user?
   final _formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> _formData = {
+  };
 
   //skaffoldkey needed to show the snackbar with pop up message in
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String _department = "";
   String _client = "";
-  var selectedCategory, selectedCurrency;
 
+  var selectedCategory, selectedCurrency;
 DateTime selectedDate = DateTime.now();
 final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
-  List<String> _selectCategory = <String> [ 'Travel', 'Accommodation', 'Subsistence', 'Staff Entertainment', 'Client Entertainment'];
+  List<String> _selectCategory = <String> [ 'Travel', 'Accommodation', 'Subsistence', 'Staff Entertainment', 'Client Entertainment', 'Other'];
 
   List<String> _selectCurrency = ['CAD','HKD','USD','EUR', 'GBP'];
-  String fromCurrency = "GBP";
 
   String error = "";
 
   //function to check date validity
-  bool isValidDate(String date) {
-    if (date.isEmpty) return true;
-    var d = convertToDate(date);
-    return d != null && d.isBefore(new DateTime.now());
-  }
-
+//  bool isValidDate(String date) {
+//    if (date.isEmpty) return true;
+//    return d != null && d.isBefore(new DateTime.now());
   //used to set form text fields
-  final TextEditingController _controller = new TextEditingController();
-
   //displays the date picker and checks date is not in future
   Future<DateTime> _selectDateTime(BuildContext context) => showDatePicker(
     context: context,
@@ -61,16 +59,6 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
     firstDate: DateTime(2000),
     lastDate: DateTime.now().add(Duration(days: 1)),
   );
-
-// Formats dates
-  DateTime convertToDate(String input) {
-    try {
-      var d = new DateFormat.yMd().parseStrict(input);
-      return d;
-    } catch (e) {
-      return null;
-    }
-  }
 
   _buildCurrencyField(){
     return Card(
@@ -92,6 +80,7 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
             onChanged: (selectCurrencyType){
               setState(() {
                 selectedCurrency  = selectCurrencyType;
+                _formData["currency"] = selectedCurrency;
               });
             },
             value: selectedCurrency,
@@ -119,6 +108,7 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
           onChanged: (selectCategoryType){
             setState(() {
               selectedCategory  = selectCategoryType;
+              _formData["category"] = selectedCategory;
             });},
           value: selectedCategory,
           isExpanded: true,
@@ -136,10 +126,14 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
             new RaisedButton.icon(
               onPressed: () async {
                 final selectedDate = await _selectDateTime(context);
-                if(selectedDate == null) return;
                 setState(() {
                   this.selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
                 });
+                if(selectedDate != null){
+                  _formData["date"] = selectedDate.toString();
+                }else{
+                  return;
+                }
               },
                 label: Text(DateFormat('dd-MM-yyyy').format(selectedDate)),
                 icon:Icon(Icons.calendar_today),
@@ -156,8 +150,9 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
     hintText: "Amount",
     labelText: "Amount",
       ),
-    keyboardType: TextInputType.numberWithOptions(decimal: true),);
-
+    keyboardType: TextInputType.numberWithOptions(decimal: true),
+    onSaved:(String value) => _formData["amount"] = value,
+    );
   }
 
   _buildDescriptionField() {
@@ -167,16 +162,15 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
             horizontal: 20.0,
-            vertical: 20.0,
           ),
-          hintText: "Description",
+          hintText: "Description ... ",
           hintStyle: TextStyle(
             fontWeight: FontWeight.w600,
           ),
-          prefix: Text("  "),
-          filled: false
+          filled: true
         ),
         maxLines: 5,
+        onSaved:(String value) => _formData["description"] = value,
       ),
     );
   }
@@ -210,12 +204,18 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                         Padding(
                           padding: EdgeInsets.all(12.0),
                           child: FlatButton(
-                            child: Text("Save"),
+                            child: Text("Submit"),
                             onPressed: () async {
                               if(_formKey.currentState.validate()){
                                 _formKey.currentState.save();
-                                await DatabaseService(uid: user.uid).addExpense(Expense());
-                                (Expense());
+                                await DatabaseService(uid: user.uid).addExpense(Expense(
+                                  uid: user.uid,
+                                  amount: _formData['amount'],
+                                  date: _formData['date'],
+                                  category: _formData['category'],
+                                  currency: _formData['currency'],
+                                  description: _formData['description']
+                                ));
                                 Navigator.pop(context);
                               }else{
                         AlertDialog(
@@ -256,6 +256,10 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                         new ListTile(
                           leading: new FaIcon(FontAwesomeIcons.pen, color: Colors.black, size: 25.0,),
                           title: _buildDescriptionField(),
+                        ),
+                        new ListTile(
+                          leading: new FaIcon(FontAwesomeIcons.image, color: Colors.black, size: 25.0,),
+                          title: new  MyFilePicker(),
                         )
                       ],
                     )));

@@ -31,8 +31,10 @@ class DatabaseService{
   Expense _userExpenseFromSnapshot(DocumentSnapshot snapshot){
     return Expense(
       uid: uid,
-      title: snapshot.data['title'],
+      category: snapshot.data['category'],
       amount: snapshot.data['amount'],
+      date: snapshot.data['date'],
+      currency: snapshot.data['currency'],
       imageUrl: snapshot.data['imageUrl']
     );
   }
@@ -55,7 +57,7 @@ class DatabaseService{
   List<Expense> _expenseListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
       return Expense(
-        title: doc.data['title'] ?? '',
+        category: doc.data['category'] ?? '',
         amount: doc.data['amount'] ?? 0,
         imageUrl: doc.data['imageUrl'] ?? '',
       );

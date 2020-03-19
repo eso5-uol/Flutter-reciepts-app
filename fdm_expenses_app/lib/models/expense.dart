@@ -1,18 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 class Expense{
-  final String title;
+  final String category;
   final String imageUrl;
   final String uid;
   final String amount;
   final String date;
+  final String currency;
+  final String description;
   final String documentId;
 
   Expense({
     @required this.uid,
-    @required this.title,
+    @required this.amount,
+    @required this.category,
     @required this.date,
-    this.amount,
+    @required this.currency,
+    @required this.description,
     this.documentId,
     this.imageUrl,
   });
@@ -20,21 +24,24 @@ class Expense{
   Map<String, dynamic> toJson(){
     return {
       'userId': uid,
-      'title': title,
+      'category': category,
       'data': date,
       'amount': amount,
-      'imageUrl': imageUrl
+      'currency': currency,
+      'imageUrl': imageUrl,
+      'description': description
     };
   }
 
   static Expense fromJson(Map<String, dynamic>map){
     if (map==null) return null;
     return Expense(
-      title: map['title'],
+      category: map['category'],
       uid: map['userId'],
-      date: map['data'],
+      date: map['date'],
       amount: map['amount'],
-
+      currency: map['currency'],
+      description: map['description']
     );
   }
 }

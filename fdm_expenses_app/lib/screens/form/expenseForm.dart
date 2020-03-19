@@ -15,11 +15,10 @@ class ExpenseForm extends StatefulWidget {
   @override
   _ExpenseFormState createState() => _ExpenseFormState();
 }
-
+enum Category { Travel, Accommodation, Subsistence, StaffEntertainment, ClientEntertainment }
 //My class
 class _ExpenseFormState extends State<ExpenseForm> {
   //auth needed to assign user?
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   //skaffoldkey needed to show the snackbar with pop up message in
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -130,7 +129,22 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 //                  ),
 //                  obscureText: true,
 //                ),
-
+              new Row(
+                children: <Widget>[
+                  new Expanded(
+                      child: new FlatButton(
+                        onPressed: () async{
+                          final Category catName = await _asyncSimpleDialog(context);
+                          if(catName == null) return;
+                        },
+                          child: Stack(
+                            children: <Widget>[
+                              Align(alignment: Alignment.centerRight, child: Icon(Icons.arrow_forward_ios)),
+                              Align(alignment: Alignment.centerLeft, child: Text("Pick a category ...", textAlign: TextAlign.center,)
+                              )
+                            ],
+                          ),
+                      ),)]),
                 //Expense Date
                 new Row(
                   children: <Widget>[
@@ -201,17 +215,6 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                   child: Text("Save & Submit"),
                   color: Colors.red[300],
                   onPressed: () async {
-                    dynamic result = await _auth.signInWithEmailAndPassword(
-                        'base67480@gmail.com', 'Pa55word!');
-                    Fluttertoast.showToast(
-                      msg: "Successfully logged in",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIos: 2,
-                      backgroundColor: Colors.white,
-                      textColor: Colors.black,
-                      fontSize: 16,
-                    );
                   },
                 ),
                 SizedBox(
@@ -231,6 +234,47 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
       ),
     );
   }
-
+  Future<Category> _asyncSimpleDialog(BuildContext context) async {
+    return await showDialog<Category>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Select Category '),
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, Category.Travel);
+                },
+                child: const Text('Travel'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, Category.Accommodation);
+                },
+                child: const Text('Accomodation'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, Category.Subsistence);
+                },
+                child: const Text('Subsistence'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, Category.StaffEntertainment);
+                },
+                child: const Text('StaffEntertainment'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context, Category.ClientEntertainment);
+                },
+                child: const Text('ClientEntertainment'),
+              )
+            ],
+          );
+        });
+  }
 
 }

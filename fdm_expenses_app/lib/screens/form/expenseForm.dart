@@ -4,19 +4,20 @@ import 'dart:ffi';
 import 'package:fdm_expenses_app/models/expense.dart';
 import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/form/filePicker.dart';
-import 'package:fdm_expenses_app/screens/services/auth.dart';
+//import 'package:fdm_expenses_app/screens/services/auth.dart';
 import 'package:fdm_expenses_app/screens/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 
 
-import 'dart:convert';
+//import 'dart:convert';
+
 
 class ExpenseForm extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
   String _department = "";
   String _client = "";
 
-  var selectedCategory, selectedCurrency;
+  var selectedCategory, selectedCurrency, selectedTravel;
 DateTime selectedDate = DateTime.now();
 final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
@@ -49,6 +50,8 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
   var _selectCurrencyIcon = {'CAD':FontAwesomeIcons.dollarSign, 'HKD':FontAwesomeIcons.dollarSign, 'USD':FontAwesomeIcons.dollarSign, 'EUR':FontAwesomeIcons.euroSign, 'GBP':FontAwesomeIcons.poundSign};
 
+  List<String> _selectTravel = <String> ['Flight', 'Mileage Claim', 'Train', 'Other Travel'];
+  var _selectTravelIcon = {'Flight':FontAwesomeIcons.plane, 'Mileage Claim': FontAwesomeIcons.car, 'Train': FontAwesomeIcons.train, 'Other Travel': FontAwesomeIcons.bus};
   String error = "";
 
   //function to check date validity
@@ -99,32 +102,74 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
         ));
   }
 
-  _buildCategoryField(){
+  _buildCategoryField() {
     return Card(
       clipBehavior: Clip.none,
-      child: DropdownButton(
-          items: _selectCategory
-              .map((value) => DropdownMenuItem(
-            child: Row(
-              children: <Widget>[
-                Icon(_selectCategoryIcon[value]),
-                SizedBox(width:10),
-                Text(
-                    value, style: TextStyle(color: Colors.black)),],),
-            value: value,
-          )).toList(),
-          onChanged: (selectCategoryType){
-            setState(() {
-              selectedCategory  = selectCategoryType;
-              _formData["category"] = selectedCategory;
-            });},
-          value: selectedCategory,
-          isExpanded: true,
-          hint: Text(
-            'Pick an expense Category',
-            style: TextStyle(color: Colors.grey),)),
-    );
-  }
+      child: Column(
+        children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(5.0),
+          child: DropdownButton(
+                items: _selectCategory
+                    .map((value) =>
+                    DropdownMenuItem(
+                      child: Row(
+                        children: <Widget>[
+                          Icon(_selectCategoryIcon[value]),
+                          SizedBox(width: 10),
+                          Text(
+                              value, style: TextStyle(color: Colors.black)),
+                        ],
+                      ),
+                      value: value,
+                    )).toList(),
+                onChanged: (selectCategoryType) {
+                  if(selectCategoryType == "Travel"){
+                  setState((){ _disableDropdown = true;
+                  selectedCategory = selectCategoryType;});
+                  }else{
+                  setState(() {
+                    _disableDropdown = false;
+                    selectedCategory = selectCategoryType;
+                    _formData["category"] = selectedCategory;
+                  });}},
+                value: selectedCategory,
+                isExpanded: true,
+                hint: Text(
+                  'Pick an expense Category',
+                  style: TextStyle(color: Colors.grey),)),
+          ),
+        _disableDropdown ? DropdownButton(
+            items: _selectTravel
+                .map((travel) =>
+                DropdownMenuItem(
+                  child: Row(
+                    children: <Widget>[
+                      Icon(_selectTravelIcon[travel]),
+                      SizedBox(width: 10),
+                      Text(
+                          travel, style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                  value: travel,
+                )).toList(),
+            onChanged: (selectTravelType) {
+                setState(() {
+                  selectedTravel = selectTravelType;
+                  _formData["category"]= "Travel: " + selectedTravel;
+                });
+            },
+            value: selectedTravel,
+            isExpanded: true,
+            hint: Text(
+              'Select a Travel Expense',
+              style: TextStyle(color: Colors.grey),)):Container()
+      ],
+    ),
+        );
+      }
+
+  bool _disableDropdown = false;
 
   _buildDatePicker(){
     return new Row(

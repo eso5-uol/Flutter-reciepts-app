@@ -71,10 +71,10 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
             items: _selectCurrency
                 .map((value) => DropdownMenuItem(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Icon(_selectCurrencyIcon[value]),
-                  // SizedBox(width:10),
+                  SizedBox(width:10),
                   Text(
                       value,
                       style: TextStyle(color: Colors.black)

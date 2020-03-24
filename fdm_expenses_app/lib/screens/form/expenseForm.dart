@@ -43,6 +43,8 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
   List<String> _selectCategory = <String> [ 'Travel', 'Accommodation', 'Subsistence', 'Staff Entertainment', 'Client Entertainment', 'Other'];
 
+  var _selectCategoryIcon = {'Travel':FontAwesomeIcons.train, 'Accommodation':FontAwesomeIcons.hotel, 'Subsistence':FontAwesomeIcons.hamburger, 'Staff Entertainment':FontAwesomeIcons.handshake, 'Client Entertainment':FontAwesomeIcons.glassCheers, 'Other':FontAwesomeIcons.questionCircle};
+
   List<String> _selectCurrency = ['CAD','HKD','USD','EUR', 'GBP'];
 
   var _selectCurrencyIcon = {'CAD':FontAwesomeIcons.dollarSign, 'HKD':FontAwesomeIcons.dollarSign, 'USD':FontAwesomeIcons.dollarSign, 'EUR':FontAwesomeIcons.euroSign, 'GBP':FontAwesomeIcons.poundSign};

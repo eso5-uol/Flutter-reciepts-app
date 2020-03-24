@@ -45,6 +45,8 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
   List<String> _selectCurrency = ['CAD','HKD','USD','EUR', 'GBP'];
 
+  var _selectCurrencyIcon = {'CAD':FontAwesomeIcons.dollarSign, 'HKD':FontAwesomeIcons.dollarSign, 'USD':FontAwesomeIcons.dollarSign, 'EUR':FontAwesomeIcons.euroSign, 'GBP':FontAwesomeIcons.poundSign};
+
   String error = "";
 
   //function to check date validity

@@ -71,6 +71,8 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  Icon(_selectCurrencyIcon[value]),
+                  // SizedBox(width:10),
                   Text(
                       value,
                       style: TextStyle(color: Colors.black)

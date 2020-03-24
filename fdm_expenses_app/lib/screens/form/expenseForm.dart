@@ -107,6 +107,8 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
               .map((value) => DropdownMenuItem(
             child: Row(
               children: <Widget>[
+                Icon(_selectCategoryIcon[value]),
+                SizedBox(width:10),
                 Text(
                     value, style: TextStyle(color: Colors.black)),],),
             value: value,

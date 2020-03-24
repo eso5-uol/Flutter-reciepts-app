@@ -74,10 +74,10 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
             items: _selectCurrency
                 .map((value) => DropdownMenuItem(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Icon(_selectCurrencyIcon[value]),
-                  // SizedBox(width:10),
+                  SizedBox(width:10),
                   Text(
                       value,
                       style: TextStyle(color: Colors.black)
@@ -291,7 +291,7 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                     child: new ListView(
                       children: <Widget>[
                         new ListTile(
-                          leading: new Icon(Icons.euro_symbol, color: Colors.black, size: 25.0,),
+                          leading: new Icon(Icons.account_balance, color: Colors.black, size: 25.0,),
                           title: _buildCurrencyField(),
                         ),
                         new ListTile(

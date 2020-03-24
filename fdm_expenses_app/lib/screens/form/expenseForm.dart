@@ -246,7 +246,7 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                     child: new ListView(
                       children: <Widget>[
                         new ListTile(
-                          leading: new Icon(Icons.euro_symbol, color: Colors.black, size: 25.0,),
+                          leading: new Icon(Icons.account_balance, color: Colors.black, size: 25.0,),
                           title: _buildCurrencyField(),
                         ),
                         new ListTile(

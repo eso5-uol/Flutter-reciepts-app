@@ -19,7 +19,7 @@ void main() {
   });
 
   test('Empty date returns error string', () {
-    var result = Validator.dateFormat('');
+    var result = Validator.dateEmpty('');
     expect(result, 'Enter a date');
   });
 

@@ -37,4 +37,28 @@ class Validator {
       return false;
     }
   }
+  
+    static bool currencyEmpty(double currency, int i){
+    i = currency.toString();
+    if (i.isEmpty) {
+      return "Enter a currency";
+    }
+  }
+
+  static bool currencyFormat(double currency, int i){
+    i = currency;
+    int length = i.toString.length;
+    if (length == 4) {
+      return false; //it is the correct format. e.g. 33.43 has a length of 4
+    } else {
+      return true; //it is the wrong format. e.g. 33.436 has a length of 5
+    }
+  }
+
+  static bool stringEmpty(string stringEntered){
+
+    if (stringEntered.isEmpty) {
+      return "Enter a currency";
+    }
+  }
 }

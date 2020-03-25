@@ -38,16 +38,16 @@ class Validator {
     }
   }
   
-    static bool currencyEmpty(double currency, int i){
-    i = currency.toString();
+  static String currencyEmpty(String currency){
+    String i = currency;
     if (i.isEmpty) {
       return "Enter a currency";
     }
   }
 
-  static bool currencyFormat(double currency, int i){
-    i = currency;
-    int length = i.toString.length;
+  static bool currencyFormat(double currency){
+    String i = currency.toString();
+    int length = i.length;
     if (length == 4) {
       return false; //it is the correct format. e.g. 33.43 has a length of 4
     } else {
@@ -55,7 +55,7 @@ class Validator {
     }
   }
 
-  static bool stringEmpty(string stringEntered){
+  static String stringEmpty(String stringEntered){
 
     if (stringEntered.isEmpty) {
       return "Enter a currency";

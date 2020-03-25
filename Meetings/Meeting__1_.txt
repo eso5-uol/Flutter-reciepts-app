@@ -1,0 +1,75 @@
+Information from meeting:
+
+    2 week cycle for the forms. All forms received in the past 2 weeks get processed. - 2 week intervals
+    
+    Save drafts of expenses app
+    
+    backbone/core of app: added form to a database, so it is saved, just not really sent anywhere
+    
+    Get an app that works, even if its very basic
+    
+    Get a spokesperson on the team to directly contact FDM personal. Leaving card at meeting.
+    
+    Receiving a copy of the policy
+    
+    Information after meeting:
+    
+    Develop a login page first
+    
+    Host a server for database on someones laptop to prove that it works
+    
+    Using flutter for the app
+    
+    Questions and answers:
+
+Questions for the Client:
+
+    1. What platform would you like us to make the app on, android or ios?
+    
+    2. How to make a claim/ what makes a claim
+    
+    3. What does the "2 week expenses process" entail?
+    
+    4. Does the app have to handle expenses in every single currency, or is there only a need to focus on the main ones?
+    
+    
+            4a. How should the calculations be handled re. conversions? ie. convert        everything to a single unified currency (GBP) for calculating the overall total expenses?
+    
+    5. username `can` be an email, can it be something else too? or is it just going to be an email?
+    
+    6. what is the enforced password policy?
+    
+    7. who can unlock a locked user account and how? (ideally only admin can email user a password reset link that unlocks it)
+    
+    
+     8. when evidence is exported from travel apps such as Trailine:
+        	8a.  is the exported document to be formatted in any specific way?
+    
+        	8b.  if yes, then the exporting process may need to be done separately for each travel app
+    
+    9. are received notifications by email, through the app, or both? (or it depends on the notification)
+    
+    10. photos taken as evidence are taken as is - should the app also suggest some fields to be filled out for each photo?
+        	- such as cost, location, item(s) expensed...
+    	
+    11. the maybe dumb question: is the 2 week expense process just you have 2 weeks to expense your claims? ))
+
+
+
+Answers:
+
+1. Having the app being able to be used on IOS and Android
+2. Travel claims
+    A. record expenses, could be train, car fuel, plane etc. relay the cost of the travel. 
+    B. Enter two postcodes to track the distance, 25p per mile
+    C. Allowance of £20 for dinner £15 for breakfast the next day
+    D. staff/client entertainment (Event/table at awards/client out for dinner) - typically pre approved [not really mandatory, but can be on the app for future development]
+3. 2 week cycle for the forms. All forms received in the past 2 weeks get processed. - 2 week intervals
+4. Fill in multiple forms dependant on where you go (currency dependant). E.g. if you go to france, you would fill out a form for the money spent in the uk, and another form for the money you spent in france. This would then be converted to gdp from euro.
+5. keep username as email
+6. strong but memorable password
+7. email reset of password (email format = FirstnameLastname@fdm.co.uk)
+8. N/A
+9. N/A
+10. N/A
+11. N/A

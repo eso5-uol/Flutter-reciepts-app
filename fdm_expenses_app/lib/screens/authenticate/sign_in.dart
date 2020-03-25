@@ -21,7 +21,7 @@ class _SignInState extends State<SignIn> {
   String _password = "";
   String error = "";
   var passwordMap = {};
-  int accountLockNumber = 5; //number of incorrect attempts user has before locked out
+  int accountLockNumber = 3; //number of incorrect attempts user has before locked out
 
   resetPasswordLinkAlert(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -53,10 +53,10 @@ class _SignInState extends State<SignIn> {
     final user = Provider.of<User>(context);
 
     return Scaffold(
-      backgroundColor: Colors.brown[100],
+//      backgroundColor: Colors.brown[100],
       appBar: AppBar(
         title: Text("Sign into FDM Expenses"),
-        backgroundColor: Colors.brown[400],
+//        backgroundColor: Colors.brown[400],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
@@ -66,7 +66,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               SizedBox(height: 20,),
               TextFormField(
-                validator: Validator.emptyEmail,
+                validator: Validator.emailSignIn,
                 onChanged: (value) {
                   setState(() {
                     _email = value;
@@ -91,6 +91,14 @@ class _SignInState extends State<SignIn> {
                 obscureText: true,
               ),
               SizedBox(height: 20),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(height: 20),
               RaisedButton(
                 color: Colors.pink[400],
                 child: Text(
@@ -98,13 +106,19 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
+                  setState(() => error = " ");
                   if (_formKey.currentState.validate()) {
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
-                    if (result == null) {
+                    if (result == "PlatformException(ERROR_USER_NOT_FOUND, There is no user record corresponding to this identifier. The user may have been deleted., null)" ||
+                                result == "PlatformException(ERROR_WRONG_PASSWORD, The password is invalid or the user does not have a password., null)") {
                       HapticFeedback.vibrate();
-                      setState(() => error = "Login credentials incorrect");
+                      setState(() => error = "Incorrect Login Details!");
+
                       if (passwordMap[_email] == accountLockNumber - 1) {
-                        _auth.changePassword(randomString(10));
+                        print("change passwowrd");
+                        dynamic changePasswordResult = await _auth.changePassword(randomString(10));
+                        print(changePasswordResult);
+                        print("Done");
                         setState(() => error = "Account locked, please reset password");
                       } else {
                         try {
@@ -113,8 +127,14 @@ class _SignInState extends State<SignIn> {
                           passwordMap[_email] = 1;
                         }
                       }
+                    } else if (result == "PlatformException(ERROR_TOO_MANY_REQUESTS, We have blocked all requests from this device due to unusual activity. Try again later. [ Too many unsuccessful login attempts. Please try again later. ], null)") {
+                      HapticFeedback.vibrate();
 
-                    } else {
+                      setState(() => error = "Too many requests, Please try again later");
+                    }
+
+                    else {
+
                       Fluttertoast.showToast(
                         msg: "Successfully logged in",
                         toastLength: Toast.LENGTH_SHORT,
@@ -144,30 +164,23 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               SizedBox(height: 5,),
-              RaisedButton(
-                child: Text("base67480@gmail.com"),
-                color: Colors.red[300],
-                onPressed: () async {
-                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'Pa55word!');
-                  Fluttertoast.showToast(
-                    msg: "Successfully logged in",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIos: 2,
-                    backgroundColor: Colors.white,
-                    textColor: Colors.black,
-                    fontSize: 16,
-                  );
-                },
-              ),
-              SizedBox(height: 10,),
-              Text(
-                error,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 14,
-                ),
-              )
+//              RaisedButton(
+//                child: Text("base67480@gmail.com"),
+//                color: Colors.red[300],
+//                onPressed: () async {
+//                  dynamic result = await _auth.signInWithEmailAndPassword('base67480@gmail.com', 'Pa55word!');
+//                  Fluttertoast.showToast(
+//                    msg: "Successfully logged in",
+//                    toastLength: Toast.LENGTH_SHORT,
+//                    gravity: ToastGravity.BOTTOM,
+//                    timeInSecForIos: 2,
+//                    backgroundColor: Colors.white,
+//                    textColor: Colors.black,
+//                    fontSize: 16,
+//                  );
+//                },
+//              ),
+              SizedBox(height: 12,)
             ],
           ),
         ),

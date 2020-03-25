@@ -1,0 +1,18 @@
+Meeting with Michaela on wednesday morning. 
+ 
+ Discovered usability ussues when demoing the progress of the log-in feature.
+    Review updating password for the characters available and accidentally clic
+        off the screen. 
+    Shouldn't be able to block a user account that doesn't exist.
+    Add confirmation of user actions eg: "password has been changed successfully"
+    
+
+A submitted  form should be shown to employee's manager who approves it before
+    being shown to the finance team - they will store the payment informaion.
+
+Make sure to allow for multi-currency claims. 
+
+User story priority:
+1. Finish current stories - expence form and login process
+2. Admins can create a accounts
+3. Perhaps split expence form into separate stories 

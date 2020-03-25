@@ -21,8 +21,7 @@ class _LoggedInState extends State<LoggedIn> {
   int _selectedIndex = 0;
 
   final List<Widget> _children = [
-    Home(),
-    Settings(),
+    Home(), Settings(),
   ];
 
   void onTabTapped(int index){

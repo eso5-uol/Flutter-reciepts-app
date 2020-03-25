@@ -2,8 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdm_expenses_app/models/user.dart';
 import 'package:fdm_expenses_app/screens/form/expenseForm.dart';
 import 'package:fdm_expenses_app/screens/services/auth.dart';
+import 'package:fdm_expenses_app/screens/register/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -49,8 +53,8 @@ class Home extends StatelessWidget {
   Container checkRole(DocumentSnapshot snapshot, context) {
     if (snapshot.data == null) {
       return Container(
-          child: Text(
-              "No data set in Firestore for the current user - check Firestore!"));
+        child: Text("No data set in Firestore for the current user - check Firestore!")
+      );
     }
     if (snapshot.data['role'] == 'admin') {
       return adminPage(context);
@@ -60,6 +64,26 @@ class Home extends StatelessWidget {
   }
 
   Container adminPage(context) {
+    final user = Provider.of<User>(context);
+    return Container(
+      child: Column(
+        children: <Widget>[
+//          Text("Home Screen"),
+          RaisedButton(
+              child: Text('Register an account'),
+              onPressed: () {
+                showDialog(context: context, builder: (_) {
+                  return Register();
+                });
+              }),
+//          Text(user.uid)
+        ],
+      ),
+
+    );
+  }
+
+  Container userPage(context) {
     final user = Provider.of<User>(context);
     return Container(
       child: Column(
@@ -78,15 +102,5 @@ class Home extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Container userPage(context) {
-    final user = Provider.of<User>(context);
-    return Container(
-        child: Column(children: <Widget>[
-//          Text("Home Screen"),
-      Text("User page - user buttons go here"),
-//          Text(user.uid)
-    ]));
   }
 }

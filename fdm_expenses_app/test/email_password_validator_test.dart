@@ -4,12 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
 
   test('empty email returns error string', () {
-    var result = Validator.emptyEmail('');
+    var result = Validator.emailSignIn('');
     expect(result, 'Enter an email');
   });
 
-  test('non-empty email returns null', () {
-    var result = Validator.emptyEmail("value");
+  test('valid email input returns null', () {
+    var result = Validator.emailSignIn("value@gmail.com");
     expect(result, null);
   }
   );
@@ -22,7 +22,12 @@ void main() {
   test('non-empty password returns null', () {
     var result = Validator.emptyPassword("value");
     expect(result, null);
-  }
-  );
+  });
+
+  test('Invalid email address returns error message', () {
+    var result = Validator.emailSignIn("base6740");
+    expect(result, "Email is formatted badly!");
+  });
+
 
 }
